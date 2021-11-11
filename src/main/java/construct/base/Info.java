@@ -3,12 +3,12 @@ package construct.base;
 import java.util.Objects;
 
 public class Info {
-    protected String naziv;
-    protected String napomena;
+    protected String name;
+    protected String note;
 
     public Info(String naziv, String napomena) {
-        this.naziv = naziv;
-        this.napomena = napomena;
+        this.name = naziv;
+        this.note = napomena;
     }
 
     @Override
@@ -16,27 +16,27 @@ public class Info {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Info info = (Info) o;
-        return Objects.equals(naziv, info.naziv) && Objects.equals(napomena, info.napomena);
+        return Objects.equals(name, info.name) && Objects.equals(note, info.note);
     }
 
     @Override
     public String toString() {
         return "Info{" +
-                "naziv='" + naziv + '\'' +
-                ", napomena='" + napomena + '\'' +
+                "name='" + name + '\'' +
+                ", note='" + note + '\'' +
                 '}';
     }
 
-    public String getNaziv() {
-        return naziv;
+    public String getName() {
+        return name;
     }
 
-    public String getNapomena() {
-        return napomena;
+    public String getNote() {
+        return note;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(naziv, napomena);
+        return Objects.hash(name, note);
     }
 }

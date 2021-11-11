@@ -6,41 +6,41 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Table {
+public class CsvTable {
 
-    static public List<Table> list;
+    static public List<CsvTable> list;
     static Pattern pattern_def_name = Pattern.compile("##__");
-    static Pattern pattern_cena = Pattern.compile("cena");
-    static Pattern pattern_null = Pattern.compile("null");
+    static Pattern pattern_cena = Pattern.compile("proizvod");
 
     @Override
     public String toString() {
         return "{" +
-                Material + '\'' +
-                Definition_Name + '\'' +
-                LenY + ' ' +
-                LenX + ' ' +
-                LenZ + ' ' +
-                Quantity + ' ' +
-                Kant_duzina + ' ' +
-                Kant_sirina + ' ' +
-                Traka_materijal + '\'' +
-                Traka_debljina + ' ' +
-                Naziv + '\'' +
-                Cena_dinari +
+                "Material='" + Material + '\'' +
+                ", Definition_Name='" + Definition_Name + '\'' +
+                ", tip=" + tip +
+                ", LenY=" + LenY +
+                ", LenX=" + LenX +
+                ", LenZ=" + LenZ +
+                ", Quantity=" + Quantity +
+                ", Kant_duzina=" + Kant_duzina +
+                ", Kant_sirina=" + Kant_sirina +
+                ", Traka_materijal='" + Traka_materijal + '\'' +
+                ", Traka_debljina=" + Traka_debljina +
+                ", Naziv='" + Naziv + '\'' +
+                ", Cena_dinari=" + Cena_dinari +
+                ", Napomena='" + Napomena + '\'' +
                 '}';
     }
-
 
     @CsvBindByName(column = "Material")
     String Material;
 
-    @CsvBindByName(column = "Definition_Name")
+    @CsvBindByName(column = "Definition Name")
     String Definition_Name;
 
-    Tip tip;
+    Type tip;
 
-    public Tip getTip() {
+    public Type getTip() {
         return tip;
     }
 
@@ -53,17 +53,9 @@ public class Table {
         matcher = pattern_cena.matcher(definition_Name);
         matchFound = matcher.find();
         if (matchFound)
-            tip = Tip.Proizvod;
+            tip = Type.Proizvod;
         else
-            tip = Tip.Element;
-    }
-
-    public int getTraka_debljina() {
-        return Traka_debljina;
-    }
-
-    public String getTraka_materijal() {
-        return Traka_materijal;
+            tip = Type.Element;
     }
 
     @CsvBindByName(column = "LenY")
@@ -100,9 +92,13 @@ public class Table {
     @CsvBindByName(column = "Cena_dinari")
     int Cena_dinari;
 
-    //    @CsvBindByName(column = "Napomena")
-//    String Napomena;
+    @CsvBindByName(column = "Napomena")
+    String Napomena = "";
 
+    public void setNapomena(String napomena) {
+        if (!napomena.equals("null"))
+            Napomena = napomena;
+    }
 
     public String getNaziv() {
         return Naziv;
@@ -153,5 +149,17 @@ public class Table {
         if (stringTraka_debljina != "")
             this.Traka_debljina = Integer.parseInt(stringTraka_debljina.substring(0, stringTraka_debljina.length() - 3));
 
+    }
+
+    public int getTraka_debljina() {
+        return Traka_debljina;
+    }
+
+    public String getTraka_materijal() {
+        return Traka_materijal;
+    }
+
+    public String getNapomena() {
+        return Napomena;
     }
 }

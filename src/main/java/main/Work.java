@@ -1,36 +1,36 @@
 package main;
 
 import construct.imlemented.element.Element;
-import construct.imlemented.materijal.Materijal;
-import construct.imlemented.proizvod.Proizvod;
-import construct.imlemented.traka.Traka;
+import construct.imlemented.material.Material;
+import construct.imlemented.product.Product;
+import construct.imlemented.tape.Tape;
 import fabric.Fabric;
-import file.reader.BeanReader;
-import file.reader.Table;
+import file.reader.ReadCSV;
+import file.reader.CsvTable;
 
 import java.io.FileNotFoundException;
 
 public class Work {
     public static void main(String[] args) {
-        BeanReader beanReader = new BeanReader();
+        ReadCSV beanReader = new ReadCSV();
         try {
             beanReader.read();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
-        Fabric fabric = new Fabric(Table.list);
+        Fabric fabric = new Fabric(CsvTable.list);
 
         Element.print_static();
         System.out.println("");
 
-        Proizvod.print_static();
+        Product.print_static();
         System.out.println("");
 
-        Traka.print_static();
+        Tape.print_static();
         System.out.println("");
 
-        Materijal.print_static();
+        Material.print_static();
         System.out.println("");
     }
 }

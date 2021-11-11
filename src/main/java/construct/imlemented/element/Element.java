@@ -4,28 +4,41 @@ import construct.base.Holder;
 import construct.base.Print;
 import construct.base.Dimension_3;
 import construct.base.Info;
+import construct.imlemented.material.Material;
+import construct.imlemented.tape.Tape;
+import construct.unique.NotUniqueException;
 
 import java.util.List;
 import java.util.Objects;
 
 public class Element extends Dimension_3 implements Print {
     protected Info info;
-    protected int kolicina;
+    protected int quantity;
     protected int kt_duzina;
     protected int kt_srina;
+    Material material = null;
+    Tape tape = null;
 
     protected static Holder<Element> created = new Holder<>();
 
-    public Element(int lenX, int lenY, int lenZ, Info info, int kolicina, String materijal) {
+    public Element(int lenX, int lenY, int lenZ, Info info, int quantity, String matererijal, int debljina_trake, String traka_materijal) {
         super(lenX, lenY, lenZ);
         this.info = info;
-        this.kolicina = kolicina;
+        this.quantity = quantity;
 
         created.add(this);
+        try {
+            material = new Material(lenZ, new Info(matererijal, ""), "-", this);
+        } catch (NotUniqueException e) {
+        }
+        try {
+            tape = new Tape(debljina_trake, new Info(traka_materijal, ""), 120, this);
+        } catch (NotUniqueException e) {
+        }
     }
 
     public int getKolicina() {
-        return kolicina;
+        return quantity;
     }
 
     @Override
@@ -34,12 +47,12 @@ public class Element extends Dimension_3 implements Print {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Element element = (Element) o;
-        return kolicina == element.kolicina && kt_duzina == element.kt_duzina && kt_srina == element.kt_srina && info.equals(element.info);
+        return quantity == element.quantity && kt_duzina == element.kt_duzina && kt_srina == element.kt_srina && info.equals(element.info);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), info, kolicina, kt_duzina, kt_srina);
+        return Objects.hash(super.hashCode(), info, quantity, kt_duzina, kt_srina);
     }
 
     public int duzina_trake() {
@@ -57,7 +70,7 @@ public class Element extends Dimension_3 implements Print {
     public String toString() {
         return "Element{" +
                 "info=" + info +
-                ", kolicina=" + kolicina +
+                ", quantity=" + quantity +
                 ", kt_duzina=" + kt_duzina +
                 ", kt_srina=" + kt_srina +
                 ", lenX=" + lenX +
@@ -66,7 +79,7 @@ public class Element extends Dimension_3 implements Print {
                 '}';
     }
 
-    static public void print_static(){
+    static public void print_static() {
         List<Element> list = created.list();
         for (Element e : list)
             System.out.println(e);

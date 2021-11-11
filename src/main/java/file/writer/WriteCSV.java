@@ -1,6 +1,6 @@
 package file.writer;
 
-public class writeCSV {
+public class WriteCSV {
     public static void main(String[] args) {
         System.out.println("kako se ja zovem");
     }

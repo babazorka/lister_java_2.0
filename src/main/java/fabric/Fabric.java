@@ -1,22 +1,19 @@
 package fabric;
 
 import construct.imlemented.element.Element;
-import construct.imlemented.materijal.Materijal;
-import construct.imlemented.proizvod.Proizvod;
-import construct.imlemented.traka.Traka;
+import construct.imlemented.product.Product;
 import construct.base.Info;
-import construct.unique.NotUniqueException;
-import file.reader.Table;
+import file.reader.CsvTable;
 
 import java.util.List;
 
 public class Fabric {
 
-    public Fabric(List<Table> list) {
-        for (Table b : list) {
+    public Fabric(List<CsvTable> list) {
+        for (CsvTable b : list) {
             switch (b.getTip()) {
                 case Proizvod -> {
-                    new Proizvod(new Info(b.getNaziv(), "napomena "), b.getCena_dinari(), b.getQuantity());
+                    new Product(new Info(b.getNaziv(), b.getNapomena()), b.getCena_dinari(), b.getQuantity());
                     break;
                 }
                 case Element -> {
@@ -24,19 +21,12 @@ public class Fabric {
                             b.getLenX(),
                             b.getLenY(),
                             b.getLenZ(),
-                            new Info(b.getNaziv(), "napomena "),
+                            new Info(b.getNaziv(), b.getNapomena()),
                             b.getQuantity(),
-                            b.getMaterial()
+                            b.getMaterial(),
+                            b.getTraka_debljina(),
+                            b.getTraka_materijal()
                     );
-
-                    try {
-                        Traka traka = new Traka(b.getTraka_debljina(), new Info(b.getTraka_materijal(), "null"), 120, element);
-                    } catch (NotUniqueException e) {
-                    }
-                    try {
-                        Materijal materijal = new Materijal(b.getLenZ(), new Info(b.getMaterial(), "null"), "-", element);
-                    } catch (NotUniqueException e) {
-                    }
                 }
             }
         }

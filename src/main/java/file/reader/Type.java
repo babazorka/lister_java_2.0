@@ -1,6 +1,6 @@
 package file.reader;
 
-public enum Tip {
+public enum Type {
     Element,
     Proizvod
 }
