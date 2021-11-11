@@ -1,9 +1,9 @@
 package main;
 
-import construct.real.Element;
-import construct.real.Materijal;
-import construct.real.Proizvod;
-import construct.real.Traka;
+import construct.imlemented.element.Element;
+import construct.imlemented.materijal.Materijal;
+import construct.imlemented.proizvod.Proizvod;
+import construct.imlemented.traka.Traka;
 import fabric.Fabric;
 import file.reader.BeanReader;
 import file.reader.Table;
@@ -18,6 +18,7 @@ public class Work {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
         Fabric fabric = new Fabric(Table.list);
 
         Element.print_static();

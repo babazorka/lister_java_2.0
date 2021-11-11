@@ -54,16 +54,16 @@ public class Table {
         matchFound = matcher.find();
         if (matchFound)
             tip = Tip.Proizvod;
-        tip = Tip.Element;
+        else
+            tip = Tip.Element;
     }
 
-    public String materijal_unique(){
-        String tektura = "-";
-        return Material + LenZ + tektura;
+    public int getTraka_debljina() {
+        return Traka_debljina;
     }
 
-    public String traka_unique(){
-        return Traka_materijal + Traka_debljina;
+    public String getTraka_materijal() {
+        return Traka_materijal;
     }
 
     @CsvBindByName(column = "LenY")
