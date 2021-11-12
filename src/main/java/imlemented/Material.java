@@ -72,23 +72,17 @@ public class Material extends Dimension_3 implements Price {
         return elements;
     }
 
-    static public ArrayList<ArrayList<String[]>> csvList() {
-        ArrayList<ArrayList<String[]>> list = new ArrayList<>();
+    static public Map<String, ArrayList<ArrayList<String[]>>> csvList() {
+        Map<String, ArrayList<ArrayList<String[]>>> map = new HashMap<>();
         for (Material material : unique.values()) {
+            ArrayList<ArrayList<String[]>> list = new ArrayList<>();
             list.add(new ArrayList<>());
-            list.get(list.size() - 1).add(new String[]{
-                    "lenX",
-                    "kt",
-                    "lenZ",
-                    "kt",
-                    "name",
-                    "texture",
-                    "quantity",
-            });
+            map.put(material.getInfo().getName(), list);
+            list.get(list.size() - 1).add(new String[]{"lenX", "kt", "lenZ", "kt", "name", "texture", "quantity", "note"});
             for (Element element : material.getElements())
                 list.get(list.size() - 1).add(element.csvRow());
         }
-        return list;
+        return map;
     }
 
     public Info getInfo() {
@@ -124,8 +118,10 @@ public class Material extends Dimension_3 implements Price {
         return surface() * lenZ * Unit.MREAL;
     }
 
-    static public ArrayList<ArrayList<String[]>> statistic() {
+    static public Map<String, ArrayList<ArrayList<String[]>>> statistic() {
+        Map<String, ArrayList<ArrayList<String[]>>> map = new HashMap<>();
         ArrayList<ArrayList<String[]>> list = new ArrayList<>();
+        map.put("StatisticTape", list);
         list.add(new ArrayList<>());
         list.get(0).add(new String[]{
                 "name",
@@ -149,6 +145,6 @@ public class Material extends Dimension_3 implements Price {
                     String.valueOf(material.volume()),
                     String.valueOf(material.calculate())
             });
-        return list;
+        return map;
     }
 }

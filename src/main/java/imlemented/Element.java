@@ -73,7 +73,8 @@ public class Element extends Dimension_3 {
                 Tape.convert(cantedWidth),
                 info.getName(),
                 "-",
-                String.valueOf(quantity)
+                String.valueOf(quantity),
+                info.getNote()
         };
     }
 }

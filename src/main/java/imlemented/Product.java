@@ -5,6 +5,8 @@ import base.Dimension_3;
 import base.Info;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Product extends Dimension_3 implements Price {
     protected Info info;
@@ -57,8 +59,10 @@ public class Product extends Dimension_3 implements Price {
             System.out.println(e);
     }
 
-    static public ArrayList<ArrayList<String[]>> csvList() {
+    static public Map<String, ArrayList<ArrayList<String[]>>> csvList() {
+        Map<String, ArrayList<ArrayList<String[]>>> map = new HashMap<>();
         ArrayList<ArrayList<String[]>> list = new ArrayList<>();
+        map.put("StatisticProducts", list);
         list.add(new ArrayList<>());
         list.get(0).add(new String[]{"name", "note", "price", "quantity", "price*quantity"});
         int accumulatedPrice = 0;
@@ -73,6 +77,6 @@ public class Product extends Dimension_3 implements Price {
             accumulatedPrice += p.calculate();
         }
         list.get(0).add(new String[]{"", "", "", "", String.valueOf(accumulatedPrice)});
-        return list;
+        return map;
     }
 }

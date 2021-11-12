@@ -19,10 +19,10 @@ public class Work {
             Fabric fabric = new Fabric(CsvTable.list);
 
 
-            WriteCSV.writeCSV(Product.csvList(), "Product"); // radi
-            WriteCSV.writeCSV(Material.csvList(), "Material"); // radi
-            WriteCSV.writeCSV(Tape.statistic(), "Tape");
-            WriteCSV.writeCSV(Material.statistic(), "StatisticsMaterial");
+            WriteCSV.writeCSV(Product.csvList()); // radi
+            WriteCSV.writeCSV(Material.csvList()); // radi
+            WriteCSV.writeCSV(Tape.statistic());
+            WriteCSV.writeCSV(Material.statistic());
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();

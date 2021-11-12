@@ -63,8 +63,10 @@ public class Tape extends Dimension_3 implements Price {
         return num;
     }
 
-    public static ArrayList<ArrayList<String[]>> statistic() {
+    public static Map<String, ArrayList<ArrayList<String[]>>> statistic() {
+        Map<String, ArrayList<ArrayList<String[]>>> map = new HashMap<>();
         ArrayList<ArrayList<String[]>> list = new ArrayList<>();
+        map.put("StatisticTape", list);
         list.add(new ArrayList<>());
         list.get(0).add(new String[]{
                 "name",
@@ -85,7 +87,7 @@ public class Tape extends Dimension_3 implements Price {
                     String.valueOf(tape.surface()),
                     String.valueOf(tape.calculate())
             });
-        return list;
+        return map;
     }
 
     public float length() {
