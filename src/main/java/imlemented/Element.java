@@ -11,6 +11,7 @@ public class Element extends Dimension_3 {
     protected int quantity;
     protected int cantedLength;
     protected int cantedWidth;
+    protected String tapeMaterial;
 
     public Element(int lenX, int lenY, int lenZ, Info info, int quantity, String material, int tapeLenZ, String tapeMaterial, int cantedLength, int cantedWidth) {
         super(lenX, lenY, lenZ);
@@ -18,6 +19,7 @@ public class Element extends Dimension_3 {
         this.quantity = quantity;
         this.cantedLength = cantedLength;
         this.cantedWidth = cantedWidth;
+        this.tapeMaterial = tapeMaterial;
 
         try {
             new Material(lenZ, new Info(material, ""), "-", this);
@@ -71,10 +73,11 @@ public class Element extends Dimension_3 {
                 Tape.convert(cantedLength),
                 String.valueOf(lenY),
                 Tape.convert(cantedWidth),
-                info.getName(),
                 "-",
                 String.valueOf(quantity),
-                info.getNote()
+                info.getName(),
+                info.getNote(),
+                tapeMaterial
         };
     }
 }

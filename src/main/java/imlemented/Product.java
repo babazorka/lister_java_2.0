@@ -3,6 +3,7 @@ package imlemented;
 import base.Price;
 import base.Dimension_3;
 import base.Info;
+import writer.OutHeader;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -64,7 +65,13 @@ public class Product extends Dimension_3 implements Price {
         ArrayList<ArrayList<String[]>> list = new ArrayList<>();
         map.put("StatisticProducts", list);
         list.add(new ArrayList<>());
-        list.get(0).add(new String[]{"name", "note", "price", "quantity", "price*quantity"});
+        list.get(0).add(new String[]{
+                OutHeader.NAME,
+                OutHeader.NOTE,
+                OutHeader.PRICE,
+                OutHeader.QUANTITY,
+                OutHeader.PRICE_QUANTITY
+        });
         int accumulatedPrice = 0;
         for (Product p : created) {
             list.get(0).add(new String[]{

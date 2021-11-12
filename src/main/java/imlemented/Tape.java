@@ -4,6 +4,7 @@ import base.Price;
 import base.Dimension_3;
 import base.Info;
 import unit.Unit;
+import writer.OutHeader;
 
 import java.util.*;
 import java.util.List;
@@ -69,23 +70,27 @@ public class Tape extends Dimension_3 implements Price {
         map.put("StatisticTape", list);
         list.add(new ArrayList<>());
         list.get(0).add(new String[]{
-                "name",
-                "note",
-                "price",
-                "elements",
-                "perimeter",
-                "surface",
-                "price*perimeter"
+                OutHeader.NAME,
+                OutHeader.LenX,
+                OutHeader.LenZ,
+                OutHeader.PRICE,
+                OutHeader.ELEMENTS,
+                OutHeader.PERIMETER,
+                OutHeader.SURFACE,
+                OutHeader.PRICE_PERIMETER,
+                OutHeader.NOTE
         });
         for (Tape tape : unique.values())
             list.get(0).add(new String[]{
                     tape.getInfo().getName(),
-                    tape.getInfo().getNote(),
+                    String.valueOf(tape.lenX),
+                    String.valueOf(tape.getLenZ()),
                     String.valueOf(tape.getPrice()),
                     String.valueOf(tape.numberOfElements()),
                     String.valueOf(tape.perimeter()),
                     String.valueOf(tape.surface()),
-                    String.valueOf(tape.calculate())
+                    String.valueOf(tape.calculate()),
+                    tape.getInfo().getNote()
             });
         return map;
     }

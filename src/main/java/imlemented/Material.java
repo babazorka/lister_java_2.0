@@ -4,8 +4,12 @@ import base.Price;
 import base.Dimension_3;
 import unit.Unit;
 import base.Info;
+import writer.OutHeader;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class Material extends Dimension_3 implements Price {
     static protected int LENGTH = 3000;
@@ -78,7 +82,17 @@ public class Material extends Dimension_3 implements Price {
             ArrayList<ArrayList<String[]>> list = new ArrayList<>();
             list.add(new ArrayList<>());
             map.put(material.getInfo().getName(), list);
-            list.get(list.size() - 1).add(new String[]{"lenX", "kt", "lenZ", "kt", "name", "texture", "quantity", "note"});
+            list.get(list.size() - 1).add(new String[]{
+                    OutHeader.LenX,
+                    OutHeader.KT,
+                    OutHeader.LenZ,
+                    OutHeader.KT,
+                    OutHeader.TEXTURE,
+                    OutHeader.QUANTITY,
+                    OutHeader.NAME,
+                    OutHeader.NOTE,
+                    OutHeader.TAPE
+            });
             for (Element element : material.getElements())
                 list.get(list.size() - 1).add(element.csvRow());
         }
@@ -121,17 +135,17 @@ public class Material extends Dimension_3 implements Price {
     static public Map<String, ArrayList<ArrayList<String[]>>> statistic() {
         Map<String, ArrayList<ArrayList<String[]>>> map = new HashMap<>();
         ArrayList<ArrayList<String[]>> list = new ArrayList<>();
-        map.put("StatisticTape", list);
+        map.put("StatisticMaterial", list);
         list.add(new ArrayList<>());
         list.get(0).add(new String[]{
-                "name",
-                "texture",
-                "price",
-                "note",
-                "perimeter",
-                "surface",
-                "volume",
-                "surface*calculate"
+                OutHeader.NAME,
+                OutHeader.TEXTURE,
+                OutHeader.PRICE,
+                OutHeader.NOTE,
+                OutHeader.PERIMETER,
+                OutHeader.SURFACE,
+                OutHeader.VOLUME,
+                OutHeader.PRICE_SURFACE
         });
 
         for (Material material : unique.values())

@@ -19,8 +19,8 @@ public class Work {
             Fabric fabric = new Fabric(CsvTable.list);
 
 
-            WriteCSV.writeCSV(Product.csvList()); // radi
-            WriteCSV.writeCSV(Material.csvList()); // radi
+            WriteCSV.writeCSV(Product.csvList());
+            WriteCSV.writeCSV(Material.csvList());
             WriteCSV.writeCSV(Tape.statistic());
             WriteCSV.writeCSV(Material.statistic());
 
