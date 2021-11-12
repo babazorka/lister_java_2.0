@@ -2,6 +2,7 @@ package reader;
 
 import com.opencsv.bean.CsvBindByName;
 
+import javax.management.InvalidAttributeValueException;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -163,11 +164,6 @@ public class CsvTable {
         return Napomena;
     }
 
-    public void setTraka_materijal(String traka_materijal) {
-//        if (!traka_materijal.equals("null"))
-        Traka_materijal = traka_materijal;
-    }
-
     public int getKant_duzina() {
         return Kant_duzina;
     }
@@ -175,4 +171,40 @@ public class CsvTable {
     public int getKant_sirina() {
         return Kant_sirina;
     }
+
+    private int materialPrice;
+
+    private String materialTexture;
+
+    public String getMaterialTexture() {
+        return materialTexture;
+    }
+
+    public int getMaterialPrice() {
+        return materialPrice;
+    }
+
+    public void setMaterial(String material) {
+        String[] split = material.split("#");
+        if (split.length == 3) {
+            materialTexture = split[0];
+            Material = split[1];
+            materialPrice = Integer.valueOf(split[2]);
+        }
+    }
+
+    private int tapePrice;
+
+    public int getTapePrice() {
+        return tapePrice;
+    }
+
+    public void setTraka_materijal(String traka_materijal) {
+        String[] split = traka_materijal.split("#");
+        if (split.length == 2) {
+            Traka_materijal = split[0];
+            tapePrice = Integer.valueOf(split[1]);
+        }
+    }
+
 }

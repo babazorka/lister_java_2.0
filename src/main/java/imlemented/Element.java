@@ -13,7 +13,21 @@ public class Element extends Dimension_3 {
     protected int cantedWidth;
     protected String tapeMaterial;
 
-    public Element(int lenX, int lenY, int lenZ, Info info, int quantity, String material, int tapeLenZ, String tapeMaterial, int cantedLength, int cantedWidth) {
+    public Element(
+            int lenX,
+            int lenY,
+            int lenZ,
+            Info info,
+            int quantity,
+            String material,
+            int tapeLenZ,
+            String tapeMaterial,
+            int cantedLength,
+            int cantedWidth,
+            int materialPrice,
+            int tapePrice,
+            String materialTexture
+    ) {
         super(lenX, lenY, lenZ);
         this.info = info;
         this.quantity = quantity;
@@ -22,12 +36,12 @@ public class Element extends Dimension_3 {
         this.tapeMaterial = tapeMaterial;
 
         try {
-            new Material(lenZ, new Info(material, ""), "-", this);
+            new Material(lenZ, new Info(material, ""), materialTexture, materialPrice, this);
         } catch (IllegalArgumentException e) {
         }
         try {
             if (tapeLength() > 0)
-                new Tape(lenZ, tapeLenZ, new Info(tapeMaterial, ""), 120, this);
+                new Tape(lenZ, tapeLenZ, new Info(tapeMaterial, ""), tapePrice, this);
         } catch (IllegalArgumentException e) {
         }
     }

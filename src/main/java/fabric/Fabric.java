@@ -27,7 +27,10 @@ public class Fabric {
                             b.getTraka_debljina(),
                             b.getTraka_materijal(),
                             b.getKant_duzina(),
-                            b.getKant_sirina()
+                            b.getKant_sirina(),
+                            b.getMaterialPrice(),
+                            b.getTapePrice(),
+                            b.getMaterialTexture()
                     );
                 }
             }

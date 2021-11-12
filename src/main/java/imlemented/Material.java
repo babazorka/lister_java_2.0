@@ -15,7 +15,6 @@ import java.util.Objects;
 public class Material extends Dimension_3 implements Price {
     static protected int LENGTH = 3000;
     static protected int WIDTH = 2800;
-    static protected int AVERAGE_PRICE = 1800;
 
     protected Info info;
     protected String texture;
@@ -24,8 +23,8 @@ public class Material extends Dimension_3 implements Price {
     protected ArrayList<Element> elements = new ArrayList<>();
     protected static Map<Integer, Material> unique = new HashMap<>();
 
-    public Material(int lenZ, Info info, String texture, Element element) throws IllegalArgumentException {
-        this(Material.LENGTH, Material.WIDTH, lenZ, info, texture, Material.AVERAGE_PRICE);
+    public Material(int lenZ, Info info, String texture, int price, Element element) throws IllegalArgumentException {
+        this(Material.LENGTH, Material.WIDTH, lenZ, info, texture, price);
         if (unique.containsKey(this.hashCode())) {
             unique.get(this.hashCode()).elements.add(element);
             throw new IllegalArgumentException("Not unique: " + this.toString());
