@@ -5,6 +5,7 @@ import base.Dimension_3;
 import base.Info;
 import writer.OutFileName;
 import writer.OutHeader;
+import writer.SpecificValue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,23 +52,23 @@ public class Product extends Dimension_3 implements Price {
         list.add(new ArrayList<>());
         list.get(0).add(new String[]{
                 OutHeader.NAME,
-                OutHeader.NOTE,
                 OutHeader.PRICE,
                 OutHeader.QUANTITY,
-                OutHeader.PRICE_QUANTITY
+                OutHeader.PRICE_QUANTITY,
+                OutHeader.NOTE
         });
         int accumulatedPrice = 0;
         for (Product p : created) {
             list.get(0).add(new String[]{
                     p.info.getName(),
-                    p.info.getNote(),
                     String.valueOf(p.price),
                     String.valueOf(p.quantity),
-                    String.valueOf(p.calculate())
+                    String.valueOf(p.calculate()),
+                    p.info.getNote(),
             });
             accumulatedPrice += p.calculate();
         }
-        list.get(0).add(new String[]{"", "", "", "", String.valueOf(accumulatedPrice)});
+        list.get(0).add(new String[]{"", "", "", String.valueOf(accumulatedPrice), SpecificValue.SUM});
         return map;
     }
 }

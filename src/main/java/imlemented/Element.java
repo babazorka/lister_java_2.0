@@ -96,10 +96,10 @@ public class Element extends Dimension_3 {
                 material.texture,
                 String.valueOf(quantity),
                 info.getName(),
-                info.getNote(),
                 tape == null
                         ? SpecificValue.NO_TAPE
-                        : tape.getInfo().getName()
+                        : tape.getInfo().getName(),
+                info.getNote()
         };
     }
 }

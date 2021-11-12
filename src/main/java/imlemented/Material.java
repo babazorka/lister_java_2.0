@@ -7,6 +7,7 @@ import unit.Unit;
 import base.Info;
 import writer.OutFileName;
 import writer.OutHeader;
+import writer.SpecificValue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,6 +17,7 @@ import java.util.Objects;
 public class Material extends Dimension_3 implements Price {
     static protected int LENGTH = 3000;
     static protected int WIDTH = 2800;
+    static public int CutPrice;
 
     protected Info info;
     protected String texture;
@@ -90,8 +92,8 @@ public class Material extends Dimension_3 implements Price {
                     OutHeader.TEXTURE,
                     OutHeader.QUANTITY,
                     OutHeader.NAME,
-                    OutHeader.NOTE,
-                    OutHeader.TAPE
+                    OutHeader.TAPE,
+                    OutHeader.NOTE
             });
             for (Element element : material.getElements())
                 list.get(list.size() - 1).add(element.csvRow());
@@ -141,24 +143,37 @@ public class Material extends Dimension_3 implements Price {
                 OutHeader.NAME,
                 OutHeader.TEXTURE,
                 OutHeader.PRICE,
-                OutHeader.NOTE,
                 OutHeader.PERIMETER,
                 OutHeader.SURFACE,
                 OutHeader.VOLUME,
-                OutHeader.PRICE_SURFACE
+                OutHeader.PRICE_SURFACE,
+                OutHeader.NOTE
         });
-
-        for (Material material : unique.values())
+        float accumulateMaterialPrice = 0;
+        float accumulatePerimeter = 0;
+        for (Material material : unique.values()) {
+            float materialPrice = material.calculate();
+            float perimeterPrice = material.perimeter();
             list.get(0).add(new String[]{
                     material.getInfo().getName(),
                     material.getTexture(),
                     String.valueOf(material.getPrice()),
-                    material.getInfo().getNote(),
-                    String.valueOf(material.perimeter()),
+                    String.valueOf(perimeterPrice),
                     String.valueOf(material.surface()),
                     String.valueOf(material.volume()),
-                    String.valueOf(material.calculate())
+                    String.valueOf(materialPrice),
+                    material.getInfo().getNote()
             });
+            accumulateMaterialPrice += materialPrice;
+            accumulatePerimeter += perimeterPrice;
+        }
+        list.get(0).add(new String[]{
+                "", "", "", String.valueOf(accumulatePerimeter * Material.CutPrice),
+                "", "", String.valueOf(accumulateMaterialPrice), SpecificValue.DESCRIPTION_1
+        });
+        list.get(0).add(new String[]{
+                "", "", "", "", "", "", String.valueOf(accumulateMaterialPrice + accumulatePerimeter * Material.CutPrice), SpecificValue.SUM
+        });
         return map;
     }
 }

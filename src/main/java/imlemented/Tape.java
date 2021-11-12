@@ -7,6 +7,7 @@ import exception.NotUniqueTape;
 import unit.Unit;
 import writer.OutHeader;
 import writer.OutFileName;
+import writer.SpecificValue;
 
 import java.util.*;
 import java.util.List;
@@ -69,20 +70,22 @@ public class Tape extends Dimension_3 implements Price {
     public static Map<String, ArrayList<ArrayList<String[]>>> statistic() {
         Map<String, ArrayList<ArrayList<String[]>>> map = new HashMap<>();
         ArrayList<ArrayList<String[]>> list = new ArrayList<>();
-        map.put(OutFileName.STATISTIC + Element.class.getSimpleName(), list);
+        map.put(OutFileName.STATISTIC + Tape.class.getSimpleName(), list);
         list.add(new ArrayList<>());
         list.get(0).add(new String[]{
                 OutHeader.NAME,
                 OutHeader.LenX,
                 OutHeader.LenZ,
                 OutHeader.PRICE,
-                Element.class.getSimpleName(),
+                SpecificValue.NUMBEROF + Element.class.getSimpleName(),
                 OutHeader.PERIMETER,
                 OutHeader.SURFACE,
                 OutHeader.PRICE_PERIMETER,
                 OutHeader.NOTE
         });
-        for (Tape tape : unique.values())
+        float accumulatePerimeterPrice = 0;
+        for (Tape tape : unique.values()) {
+            float calculate = tape.calculate();
             list.get(0).add(new String[]{
                     tape.getInfo().getName(),
                     String.valueOf(tape.lenX),
@@ -91,9 +94,13 @@ public class Tape extends Dimension_3 implements Price {
                     String.valueOf(tape.numberOfElements()),
                     String.valueOf(tape.perimeter()),
                     String.valueOf(tape.surface()),
-                    String.valueOf(tape.calculate()),
+                    String.valueOf(calculate),
                     tape.getInfo().getNote()
             });
+            accumulatePerimeterPrice += calculate;
+        }
+        list.get(0).add(new String[]{"", "", "", "", "", "", "", String.valueOf(accumulatePerimeterPrice), SpecificValue.SUM});
+
         return map;
     }
 

@@ -14,6 +14,7 @@ import java.io.IOException;
 public class Work {
     public static void main(String[] args) {
         try {
+            Material.CutPrice = 120; // cena rezanja po metru
 //            ReadCSV readCSV = new ReadCSV("C:\\Users\\kaoko\\OneDrive\\Desktop\\list.csv");
             new ReadCSV(); // relative path
             new Fabric(CsvTable.list);
