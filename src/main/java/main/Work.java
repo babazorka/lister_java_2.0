@@ -15,9 +15,8 @@ public class Work {
     public static void main(String[] args) {
         try {
 //            ReadCSV readCSV = new ReadCSV("C:\\Users\\kaoko\\OneDrive\\Desktop\\list.csv");
-            ReadCSV readCSV_relative = new ReadCSV(); // relative path
-            Fabric fabric = new Fabric(CsvTable.list);
-
+            new ReadCSV(); // relative path
+            new Fabric(CsvTable.list);
 
             WriteCSV.writeCSV(Product.csvList());
             WriteCSV.writeCSV(Material.csvList());

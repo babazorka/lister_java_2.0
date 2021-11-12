@@ -5,6 +5,7 @@ import base.Dimension_3;
 import base.Info;
 import unit.Unit;
 import writer.OutHeader;
+import writer.OutFile;
 
 import java.util.*;
 import java.util.List;
@@ -67,14 +68,14 @@ public class Tape extends Dimension_3 implements Price {
     public static Map<String, ArrayList<ArrayList<String[]>>> statistic() {
         Map<String, ArrayList<ArrayList<String[]>>> map = new HashMap<>();
         ArrayList<ArrayList<String[]>> list = new ArrayList<>();
-        map.put("StatisticTape", list);
+        map.put(OutFile.STATISTIC + Element.class.getSimpleName(), list);
         list.add(new ArrayList<>());
         list.get(0).add(new String[]{
                 OutHeader.NAME,
                 OutHeader.LenX,
                 OutHeader.LenZ,
                 OutHeader.PRICE,
-                OutHeader.ELEMENTS,
+                Element.class.getSimpleName(),
                 OutHeader.PERIMETER,
                 OutHeader.SURFACE,
                 OutHeader.PRICE_PERIMETER,

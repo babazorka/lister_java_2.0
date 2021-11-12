@@ -3,6 +3,7 @@ package imlemented;
 import base.Price;
 import base.Dimension_3;
 import base.Info;
+import writer.OutFile;
 import writer.OutHeader;
 
 import java.util.ArrayList;
@@ -29,18 +30,6 @@ public class Product extends Dimension_3 implements Price {
         created.add(this);
     }
 
-    public Info getInfo() {
-        return info;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
     public float calculate() {
         return price * quantity;
     }
@@ -55,15 +44,10 @@ public class Product extends Dimension_3 implements Price {
                 '}';
     }
 
-    static public void print_static() {
-        for (Product e : created)
-            System.out.println(e);
-    }
-
     static public Map<String, ArrayList<ArrayList<String[]>>> csvList() {
         Map<String, ArrayList<ArrayList<String[]>>> map = new HashMap<>();
         ArrayList<ArrayList<String[]>> list = new ArrayList<>();
-        map.put("StatisticProducts", list);
+        map.put(OutFile.STATISTIC + Product.class.getSimpleName(), list);
         list.add(new ArrayList<>());
         list.get(0).add(new String[]{
                 OutHeader.NAME,

@@ -4,6 +4,7 @@ import base.Price;
 import base.Dimension_3;
 import unit.Unit;
 import base.Info;
+import writer.OutFile;
 import writer.OutHeader;
 
 import java.util.ArrayList;
@@ -22,7 +23,6 @@ public class Material extends Dimension_3 implements Price {
 
     protected ArrayList<Element> elements = new ArrayList<>();
     protected static Map<Integer, Material> unique = new HashMap<>();
-
 
     public Material(int lenZ, Info info, String texture, Element element) throws IllegalArgumentException {
         this(Material.LENGTH, Material.WIDTH, lenZ, info, texture, Material.AVERAGE_PRICE);
@@ -135,7 +135,7 @@ public class Material extends Dimension_3 implements Price {
     static public Map<String, ArrayList<ArrayList<String[]>>> statistic() {
         Map<String, ArrayList<ArrayList<String[]>>> map = new HashMap<>();
         ArrayList<ArrayList<String[]>> list = new ArrayList<>();
-        map.put("StatisticMaterial", list);
+        map.put(OutFile.STATISTIC + Material.class.getSimpleName(), list);
         list.add(new ArrayList<>());
         list.get(0).add(new String[]{
                 OutHeader.NAME,
