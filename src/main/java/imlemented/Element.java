@@ -2,6 +2,7 @@ package imlemented;
 
 import base.Dimension_3;
 import base.Info;
+import unit.Unit;
 
 import java.util.Objects;
 
@@ -24,7 +25,7 @@ public class Element extends Dimension_3 {
         }
         try {
             if (tapeLength() > 0)
-                new Tape(tapeLenZ, new Info(tapeMaterial, ""), 120, this);
+                new Tape(lenZ, tapeLenZ, new Info(tapeMaterial, ""), 120, this);
         } catch (IllegalArgumentException e) {
         }
     }
@@ -47,8 +48,8 @@ public class Element extends Dimension_3 {
         return Objects.hash(super.hashCode(), info, quantity, cantedLength, cantedWidth);
     }
 
-    public int tapeLength() {
-        return cantedLength * lenY + cantedWidth * lenX;
+    public float tapeLength() {
+        return (cantedLength * lenY + cantedWidth * lenX) * Unit.MREAL;
     }
 
     @Override

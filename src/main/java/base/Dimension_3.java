@@ -1,12 +1,14 @@
 package base;
 
+import unit.Unit;
+
 import java.util.Objects;
 
 public abstract class Dimension_3 extends Dimension_2 {
     protected int lenZ;
 
     public float volume() {
-        return surface() * lenZ;
+        return surface() * lenZ * Unit.MREAL;
     }
 
     public Dimension_3(int lenX, int lenY, int lenZ) {

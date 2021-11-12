@@ -1,17 +1,19 @@
 package base;
 
+import unit.Unit;
+
 import java.util.Objects;
 
 public abstract class Dimension_2 {
     protected int lenX;
     protected int lenY;
 
-    public int surface() {
-        return lenX * lenY;
+    public float surface() {
+        return lenX * lenY * Unit.M2REAL;
     }
 
-    public int perimeter() {
-        return 2 * (lenX + lenY);
+    public float perimeter() {
+        return 2 * (lenX + lenY) * Unit.MREAL;
     }
 
     public Dimension_2(int lenX, int lenY) {

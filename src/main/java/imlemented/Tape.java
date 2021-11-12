@@ -2,8 +2,8 @@ package imlemented;
 
 import base.Price;
 import base.Dimension_3;
-import unit.Unit;
 import base.Info;
+import unit.Unit;
 
 import java.util.*;
 import java.util.List;
@@ -15,8 +15,8 @@ public class Tape extends Dimension_3 implements Price {
     protected ArrayList<Element> elements = new ArrayList<>();
     protected static Map<Integer, Tape> unique = new HashMap<>();
 
-    public Tape(int lenZ, Info info, int price, Element element) throws IllegalArgumentException {
-        this(0, 0, lenZ, info, price);
+    public Tape(int lenX, int lenZ, Info info, int price, Element element) throws IllegalArgumentException {
+        this(lenX, Integer.MAX_VALUE, lenZ, info, price);
         if (unique.containsKey(this.hashCode())) {
             unique.get(this.hashCode()).elements.add(element);
             throw new IllegalArgumentException("Not unique: " + this.toString());
@@ -36,13 +36,16 @@ public class Tape extends Dimension_3 implements Price {
     }
 
     @Override
-    public int surface() {
-        return lenZ * perimeter();
+    public float surface() {
+        float surface = 0;
+        for (Element e : elements)
+            surface += e.surface() * e.getQuantity();
+        return surface;
     }
 
     @Override
-    public int perimeter() {
-        int perimeter = 0;
+    public float perimeter() {
+        float perimeter = 0;
         for (Element e : elements)
             perimeter += e.tapeLength() * e.getQuantity();
         return perimeter;
@@ -50,37 +53,43 @@ public class Tape extends Dimension_3 implements Price {
 
     @Override
     public float volume() {
-        return 0;
+        return surface() * lenZ * Unit.MREAL;
+    }
+
+    private int numberOfElements() {
+        int num = 0;
+        for (Element element : elements)
+            num += element.getQuantity();
+        return num;
     }
 
     public static ArrayList<ArrayList<String[]>> statistic() {
         ArrayList<ArrayList<String[]>> list = new ArrayList<>();
-        for (Tape tape : unique.values()) {
-            list.add(new ArrayList<>());
-            list.get(list.size() - 1).add(new String[]{
-                    "name",
-                    "note",
-                    "price",
-                    "elements",
-                    "perimeter",
-                    "surface",
-                    "price*perimeter"
-            });
-            list.get(list.size() - 1).add(new String[]{
+        list.add(new ArrayList<>());
+        list.get(0).add(new String[]{
+                "name",
+                "note",
+                "price",
+                "elements",
+                "perimeter",
+                "surface",
+                "price*perimeter"
+        });
+        for (Tape tape : unique.values())
+            list.get(0).add(new String[]{
                     tape.getInfo().getName(),
                     tape.getInfo().getNote(),
                     String.valueOf(tape.getPrice()),
-                    String.valueOf(tape.elements.size()),
-                    String.valueOf(tape.perimeter() / Unit.PERIMETER),
-                    String.valueOf(tape.surface() / Unit.SURFACE),
+                    String.valueOf(tape.numberOfElements()),
+                    String.valueOf(tape.perimeter()),
+                    String.valueOf(tape.surface()),
                     String.valueOf(tape.calculate())
             });
-        }
         return list;
     }
 
-    public int length() {
-        int tapeLength = 0;
+    public float length() {
+        float tapeLength = 0;
         List<Element> list = elements;
 
         for (Element elem : list)
@@ -90,7 +99,7 @@ public class Tape extends Dimension_3 implements Price {
 
     @Override
     public float calculate() {
-        return price * length() / Unit.PERIMETER;
+        return price * length();
     }
 
     @Override
@@ -115,10 +124,6 @@ public class Tape extends Dimension_3 implements Price {
     public int hashCode() {
         return Objects.hash(super.hashCode(), info, price);
     }
-
-//    static public void print_static() {
-//        unique.print();
-//    }
 
     public Info getInfo() {
         return info;

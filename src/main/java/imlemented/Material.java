@@ -14,7 +14,7 @@ public class Material extends Dimension_3 implements Price {
 
     protected Info info;
     protected String texture;
-    protected int price = Material.AVERAGE_PRICE;
+    protected int price;
 
     protected ArrayList<Element> elements = new ArrayList<>();
     protected static Map<Integer, Material> unique = new HashMap<>();
@@ -39,7 +39,7 @@ public class Material extends Dimension_3 implements Price {
 
     @Override
     public float calculate() {
-        return price * surface() / Unit.SURFACE;
+        return price * surface();
     }
 
     @Override
@@ -67,10 +67,6 @@ public class Material extends Dimension_3 implements Price {
     public int hashCode() {
         return Objects.hash(super.hashCode(), info, texture, price);
     }
-
-//    static public void print_static() {
-//        unique.print();
-//    }
 
     public ArrayList<Element> getElements() {
         return elements;
@@ -108,16 +104,16 @@ public class Material extends Dimension_3 implements Price {
     }
 
     @Override
-    public int surface() {
-        int surface = 0;
+    public float surface() {
+        float surface = 0;
         for (Element e : elements)
             surface += e.surface() * e.getQuantity();
         return surface;
     }
 
     @Override
-    public int perimeter() {
-        int perimeter = 0;
+    public float perimeter() {
+        float perimeter = 0;
         for (Element e : elements)
             perimeter += e.perimeter() * e.getQuantity();
         return perimeter;
@@ -125,10 +121,7 @@ public class Material extends Dimension_3 implements Price {
 
     @Override
     public float volume() {
-        int volume = 0;
-        for (Element e : elements)
-            volume += e.perimeter() * e.getQuantity();
-        return volume;
+        return surface() * lenZ * Unit.MREAL;
     }
 
     static public ArrayList<ArrayList<String[]>> statistic() {
@@ -151,9 +144,9 @@ public class Material extends Dimension_3 implements Price {
                     material.getTexture(),
                     String.valueOf(material.getPrice()),
                     material.getInfo().getNote(),
-                    String.valueOf(material.perimeter() / Unit.PERIMETER),
-                    String.valueOf(material.surface() / Unit.SURFACE),
-                    String.valueOf(material.volume() / Unit.VOLUME),
+                    String.valueOf(material.perimeter()),
+                    String.valueOf(material.surface()),
+                    String.valueOf(material.volume()),
                     String.valueOf(material.calculate())
             });
         return list;
