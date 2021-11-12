@@ -1,12 +1,11 @@
 package main;
 
-import construct.imlemented.Material;
-import construct.imlemented.Product;
-import construct.imlemented.Tape;
+import imlemented.Material;
+import imlemented.Tape;
 import fabric.Fabric;
-import file.reader.ReadCSV;
-import file.reader.CsvTable;
-import file.writer.WriteCSV;
+import reader.ReadCSV;
+import reader.CsvTable;
+import writer.WriteCSV;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -32,7 +31,7 @@ public class Work {
 
 //            WriteCSV.writeCSV(Product.csvList(), "Product"); // radi
 //            WriteCSV.writeCSV(Material.csvList(), "Material"); // radi
-            WriteCSV.writeCSV(Tape.csvList(), "Tape");
+            WriteCSV.writeCSV(Tape.statistic(), "Tape");
             WriteCSV.writeCSV(Material.statistic(), "StatisticsMaterial");
 
         } catch (FileNotFoundException e) {

@@ -1,25 +1,28 @@
-package construct.imlemented;
+package imlemented;
 
-import construct.unique.MultiHash;
-import construct.base.Price;
-import construct.base.Dimension_3;
-import construct.base.Info;
-import construct.unique.NotUniqueException;
+import base.Price;
+import base.Dimension_3;
+import unit.Unit;
+import base.Info;
 
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Objects;
 
 public class Tape extends Dimension_3 implements Price {
     protected Info info;
     protected int price;
 
-    protected static ArrayList<Element> elements = new ArrayList<>();
-    protected static MultiHash<Tape, Element> unique = new MultiHash<>();
+    protected ArrayList<Element> elements = new ArrayList<>();
+    protected static Map<Integer, Tape> unique = new HashMap<>();
 
-    public Tape(int lenZ, Info info, int price, Element element) throws NotUniqueException {
+    public Tape(int lenZ, Info info, int price, Element element) throws IllegalArgumentException {
         this(0, 0, lenZ, info, price);
-        unique.add(this, element);
+        if (unique.containsKey(this.hashCode())) {
+            unique.get(this.hashCode()).elements.add(element);
+            throw new IllegalArgumentException("Not unique: " + this.toString());
+        }
+        unique.put(this.hashCode(), this);
+        elements.add(element);
     }
 
     private Tape(int lenX, int lenY, int lenZ, Info info, int quantity) {
@@ -34,7 +37,7 @@ public class Tape extends Dimension_3 implements Price {
 
     @Override
     public int surface() {
-        return perimeter() * lenZ;
+        return lenZ * perimeter();
     }
 
     @Override
@@ -46,28 +49,33 @@ public class Tape extends Dimension_3 implements Price {
     }
 
     @Override
-    public int volume() {
+    public float volume() {
         return 0;
     }
 
-    public static ArrayList<ArrayList<String[]>> csvList() {
+    public static ArrayList<ArrayList<String[]>> statistic() {
         ArrayList<ArrayList<String[]>> list = new ArrayList<>();
-        list.add(new ArrayList<>());
-        list.get(0).add(new String[]{
-                "name",
-                "note",
-                "price",
-                "perimeter",
-                "surface"
-        });
-        for (Tape tape : unique.keySet())
-            list.get(0).add(new String[]{
+        for (Tape tape : unique.values()) {
+            list.add(new ArrayList<>());
+            list.get(list.size() - 1).add(new String[]{
+                    "name",
+                    "note",
+                    "price",
+                    "elements",
+                    "perimeter",
+                    "surface",
+                    "price*perimeter"
+            });
+            list.get(list.size() - 1).add(new String[]{
                     tape.getInfo().getName(),
                     tape.getInfo().getNote(),
                     String.valueOf(tape.getPrice()),
-                    String.valueOf(tape.perimeter()),
-                    String.valueOf(tape.surface()),
+                    String.valueOf(tape.elements.size()),
+                    String.valueOf(tape.perimeter() / Unit.PERIMETER),
+                    String.valueOf(tape.surface() / Unit.SURFACE),
+                    String.valueOf(tape.calculate())
             });
+        }
         return list;
     }
 
@@ -77,17 +85,17 @@ public class Tape extends Dimension_3 implements Price {
 
         for (Element elem : list)
             tapeLength += elem.tapeLength();
-        return tapeLength * price;
+        return tapeLength;
     }
 
     @Override
-    public int calculate() {
-        return price * length();
+    public float calculate() {
+        return price * length() / Unit.PERIMETER;
     }
 
     @Override
     public String toString() {
-        return "Traka{" +
+        return "Tape{" +
                 "info=" + info +
                 ", quantity=" + price +
                 ", lenZ=" + lenZ +
@@ -108,9 +116,9 @@ public class Tape extends Dimension_3 implements Price {
         return Objects.hash(super.hashCode(), info, price);
     }
 
-    static public void print_static() {
-        unique.print();
-    }
+//    static public void print_static() {
+//        unique.print();
+//    }
 
     public Info getInfo() {
         return info;

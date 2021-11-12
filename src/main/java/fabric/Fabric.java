@@ -1,9 +1,9 @@
 package fabric;
 
-import construct.imlemented.Element;
-import construct.imlemented.Product;
-import construct.base.Info;
-import file.reader.CsvTable;
+import imlemented.Element;
+import imlemented.Product;
+import base.Info;
+import reader.CsvTable;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class Fabric {
                     break;
                 }
                 case Element -> {
-                    Element element = new Element(
+                    new Element(
                             b.getLenX(),
                             b.getLenY(),
                             b.getLenZ(),

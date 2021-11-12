@@ -1,4 +1,4 @@
-package file.writer;
+package writer;
 
 import com.opencsv.CSVWriter;
 import org.apache.commons.lang3.RandomStringUtils;

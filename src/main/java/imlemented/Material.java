@@ -1,46 +1,50 @@
-package construct.imlemented;
+package imlemented;
 
-import construct.base.Price;
-import construct.base.Dimension_3;
-import construct.base.Info;
-import construct.unique.MultiHash;
-import construct.unique.NotUniqueException;
+import base.Price;
+import base.Dimension_3;
+import unit.Unit;
+import base.Info;
 
 import java.util.*;
 
 public class Material extends Dimension_3 implements Price {
+    static protected int LENGTH = 3000;
+    static protected int WIDTH = 2800;
+    static protected int AVERAGE_PRICE = 1800;
 
     protected Info info;
     protected String texture;
-    protected int price = AVERAGE_PRICE;
+    protected int price = Material.AVERAGE_PRICE;
 
-    static public int LENGTH = 3000;
-    static public int WIDTH = 2800;
-    static public int AVERAGE_PRICE = 1800;
+    protected ArrayList<Element> elements = new ArrayList<>();
+    protected static Map<Integer, Material> unique = new HashMap<>();
 
-    protected static ArrayList<Element> elements = new ArrayList<>();
-    protected static MultiHash<Material, Element> unique = new MultiHash<>();
 
-    public Material(int lenZ, Info info, String texture, Element element) throws NotUniqueException {
-        this(LENGTH, WIDTH, lenZ, info, texture, AVERAGE_PRICE);
-        unique.add(this, element);
+    public Material(int lenZ, Info info, String texture, Element element) throws IllegalArgumentException {
+        this(Material.LENGTH, Material.WIDTH, lenZ, info, texture, Material.AVERAGE_PRICE);
+        if (unique.containsKey(this.hashCode())) {
+            unique.get(this.hashCode()).elements.add(element);
+            throw new IllegalArgumentException("Not unique: " + this.toString());
+        }
+        unique.put(this.hashCode(), this);
+        elements.add(element);
     }
 
     private Material(int lenX, int lenY, int lenZ, Info info, String texture, int price) {
         super(lenX, lenY, lenZ);
         this.info = info;
-        this.texture = "-";
+        this.texture = texture;
         this.price = price;
     }
 
     @Override
-    public int calculate() {
-        return price * surface();
+    public float calculate() {
+        return price * surface() / Unit.SURFACE;
     }
 
     @Override
     public String toString() {
-        return "Materijal{" +
+        return "Material{" +
                 "info=" + info +
                 ", texture='" + texture + '\'' +
                 ", price=" + price +
@@ -64,13 +68,17 @@ public class Material extends Dimension_3 implements Price {
         return Objects.hash(super.hashCode(), info, texture, price);
     }
 
-    static public void print_static() {
-        unique.print();
+//    static public void print_static() {
+//        unique.print();
+//    }
+
+    public ArrayList<Element> getElements() {
+        return elements;
     }
 
     static public ArrayList<ArrayList<String[]>> csvList() {
         ArrayList<ArrayList<String[]>> list = new ArrayList<>();
-        for (Material material : unique.getMulitMap().keySet()) {
+        for (Material material : unique.values()) {
             list.add(new ArrayList<>());
             list.get(list.size() - 1).add(new String[]{
                     "lenX",
@@ -81,7 +89,7 @@ public class Material extends Dimension_3 implements Price {
                     "texture",
                     "quantity",
             });
-            for (Element element : unique.getMulitMap().get(material))
+            for (Element element : material.getElements())
                 list.get(list.size() - 1).add(element.csvRow());
         }
         return list;
@@ -116,7 +124,7 @@ public class Material extends Dimension_3 implements Price {
     }
 
     @Override
-    public int volume() {
+    public float volume() {
         int volume = 0;
         for (Element e : elements)
             volume += e.perimeter() * e.getQuantity();
@@ -137,15 +145,15 @@ public class Material extends Dimension_3 implements Price {
                 "surface*calculate"
         });
 
-        for (Material material : unique.keySet())
+        for (Material material : unique.values())
             list.get(0).add(new String[]{
                     material.getInfo().getName(),
                     material.getTexture(),
                     String.valueOf(material.getPrice()),
                     material.getInfo().getNote(),
-                    String.valueOf(material.perimeter()),
-                    String.valueOf(material.surface()),
-                    String.valueOf(material.volume()),
+                    String.valueOf(material.perimeter() / Unit.PERIMETER),
+                    String.valueOf(material.surface() / Unit.SURFACE),
+                    String.valueOf(material.volume() / Unit.VOLUME),
                     String.valueOf(material.calculate())
             });
         return list;

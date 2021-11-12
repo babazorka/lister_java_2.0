@@ -1,4 +1,4 @@
-package file.reader;
+package reader;
 
 public enum Type {
     Element,

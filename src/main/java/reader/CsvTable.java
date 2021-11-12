@@ -1,4 +1,4 @@
-package file.reader;
+package reader;
 
 import com.opencsv.bean.CsvBindByName;
 

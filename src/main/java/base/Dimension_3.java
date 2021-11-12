@@ -1,11 +1,11 @@
-package construct.base;
+package base;
 
 import java.util.Objects;
 
 public abstract class Dimension_3 extends Dimension_2 {
     protected int lenZ;
 
-    public int volume() {
+    public float volume() {
         return surface() * lenZ;
     }
 

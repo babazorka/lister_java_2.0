@@ -1,11 +1,10 @@
-package construct.imlemented;
+package imlemented;
 
-import construct.base.Price;
-import construct.base.Dimension_3;
-import construct.base.Info;
+import base.Price;
+import base.Dimension_3;
+import base.Info;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Product extends Dimension_3 implements Price {
     protected Info info;
@@ -39,13 +38,13 @@ public class Product extends Dimension_3 implements Price {
         return quantity;
     }
 
-    public int calculate() {
+    public float calculate() {
         return price * quantity;
     }
 
     @Override
     public String toString() {
-        return "Proizvod{" +
+        return "Product{" +
                 "info=" + info +
                 ", price=" + price +
                 ", quantity=" + quantity +

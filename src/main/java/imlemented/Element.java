@@ -1,8 +1,7 @@
-package construct.imlemented;
+package imlemented;
 
-import construct.base.Dimension_3;
-import construct.base.Info;
-import construct.unique.NotUniqueException;
+import base.Dimension_3;
+import base.Info;
 
 import java.util.Objects;
 
@@ -21,12 +20,12 @@ public class Element extends Dimension_3 {
 
         try {
             new Material(lenZ, new Info(material, ""), "-", this);
-        } catch (NotUniqueException e) {
+        } catch (IllegalArgumentException e) {
         }
         try {
-            if(tapeLength() > 0)
+            if (tapeLength() > 0)
                 new Tape(tapeLenZ, new Info(tapeMaterial, ""), 120, this);
-        } catch (NotUniqueException e) {
+        } catch (IllegalArgumentException e) {
         }
     }
 
@@ -49,7 +48,7 @@ public class Element extends Dimension_3 {
     }
 
     public int tapeLength() {
-        return cantedLength * lenY + cantedLength * lenX;
+        return cantedLength * lenY + cantedWidth * lenX;
     }
 
     @Override

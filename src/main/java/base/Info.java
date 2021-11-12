@@ -1,4 +1,4 @@
-package construct.base;
+package base;
 
 import java.util.Objects;
 
