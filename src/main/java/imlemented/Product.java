@@ -3,7 +3,7 @@ package imlemented;
 import base.Price;
 import base.Dimension_3;
 import base.Info;
-import writer.OutFile;
+import writer.OutFileName;
 import writer.OutHeader;
 
 import java.util.ArrayList;
@@ -47,7 +47,7 @@ public class Product extends Dimension_3 implements Price {
     static public Map<String, ArrayList<ArrayList<String[]>>> csvList() {
         Map<String, ArrayList<ArrayList<String[]>>> map = new HashMap<>();
         ArrayList<ArrayList<String[]>> list = new ArrayList<>();
-        map.put(OutFile.STATISTIC + Product.class.getSimpleName(), list);
+        map.put(OutFileName.STATISTIC + Product.class.getSimpleName(), list);
         list.add(new ArrayList<>());
         list.get(0).add(new String[]{
                 OutHeader.NAME,

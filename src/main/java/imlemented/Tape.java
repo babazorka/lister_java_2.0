@@ -3,9 +3,10 @@ package imlemented;
 import base.Price;
 import base.Dimension_3;
 import base.Info;
+import exception.NotUniqueTape;
 import unit.Unit;
 import writer.OutHeader;
-import writer.OutFile;
+import writer.OutFileName;
 
 import java.util.*;
 import java.util.List;
@@ -17,11 +18,11 @@ public class Tape extends Dimension_3 implements Price {
     protected ArrayList<Element> elements = new ArrayList<>();
     protected static Map<Integer, Tape> unique = new HashMap<>();
 
-    public Tape(int lenX, int lenZ, Info info, int price, Element element) throws IllegalArgumentException {
+    public Tape(int lenX, int lenZ, Info info, int price, Element element) throws NotUniqueTape {
         this(lenX, Integer.MAX_VALUE, lenZ, info, price);
         if (unique.containsKey(this.hashCode())) {
             unique.get(this.hashCode()).elements.add(element);
-            throw new IllegalArgumentException("Not unique: " + this.toString());
+            throw new NotUniqueTape(unique.get(this.hashCode()));
         }
         unique.put(this.hashCode(), this);
         elements.add(element);
@@ -68,7 +69,7 @@ public class Tape extends Dimension_3 implements Price {
     public static Map<String, ArrayList<ArrayList<String[]>>> statistic() {
         Map<String, ArrayList<ArrayList<String[]>>> map = new HashMap<>();
         ArrayList<ArrayList<String[]>> list = new ArrayList<>();
-        map.put(OutFile.STATISTIC + Element.class.getSimpleName(), list);
+        map.put(OutFileName.STATISTIC + Element.class.getSimpleName(), list);
         list.add(new ArrayList<>());
         list.get(0).add(new String[]{
                 OutHeader.NAME,

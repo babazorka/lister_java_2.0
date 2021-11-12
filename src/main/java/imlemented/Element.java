@@ -2,7 +2,10 @@ package imlemented;
 
 import base.Dimension_3;
 import base.Info;
+import exception.NotUniqueMaterial;
+import exception.NotUniqueTape;
 import unit.Unit;
+import writer.SpecificValue;
 
 import java.util.Objects;
 
@@ -11,7 +14,8 @@ public class Element extends Dimension_3 {
     protected int quantity;
     protected int cantedLength;
     protected int cantedWidth;
-    protected String tapeMaterial;
+    protected Material material;
+    protected Tape tape;
 
     public Element(
             int lenX,
@@ -33,16 +37,18 @@ public class Element extends Dimension_3 {
         this.quantity = quantity;
         this.cantedLength = cantedLength;
         this.cantedWidth = cantedWidth;
-        this.tapeMaterial = tapeMaterial;
 
         try {
-            new Material(lenZ, new Info(material, ""), materialTexture, materialPrice, this);
-        } catch (IllegalArgumentException e) {
+            this.material = new Material(lenZ, new Info(material, ""), materialTexture, materialPrice, this);
+        } catch (NotUniqueMaterial e) {
+            this.material = e.getMaterial();
+
         }
         try {
             if (tapeLength() > 0)
-                new Tape(lenZ, tapeLenZ, new Info(tapeMaterial, ""), tapePrice, this);
-        } catch (IllegalArgumentException e) {
+                this.tape = new Tape(lenZ, tapeLenZ, new Info(tapeMaterial, ""), tapePrice, this);
+        } catch (NotUniqueTape e) {
+            this.tape = e.getTape();
         }
     }
 
@@ -87,11 +93,13 @@ public class Element extends Dimension_3 {
                 Tape.convert(cantedLength),
                 String.valueOf(lenY),
                 Tape.convert(cantedWidth),
-                "-",
+                material.texture,
                 String.valueOf(quantity),
                 info.getName(),
                 info.getNote(),
-                tapeMaterial
+                tape == null
+                        ? SpecificValue.NO_TAPE
+                        : tape.getInfo().getName()
         };
     }
 }

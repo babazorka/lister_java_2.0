@@ -1,5 +1,5 @@
 package writer;
 
-public enum OutFile {;
+public enum OutFileName {;
     static public final String STATISTIC = "Statistic";
 }

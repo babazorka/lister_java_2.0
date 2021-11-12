@@ -2,9 +2,10 @@ package imlemented;
 
 import base.Price;
 import base.Dimension_3;
+import exception.NotUniqueMaterial;
 import unit.Unit;
 import base.Info;
-import writer.OutFile;
+import writer.OutFileName;
 import writer.OutHeader;
 
 import java.util.ArrayList;
@@ -23,11 +24,11 @@ public class Material extends Dimension_3 implements Price {
     protected ArrayList<Element> elements = new ArrayList<>();
     protected static Map<Integer, Material> unique = new HashMap<>();
 
-    public Material(int lenZ, Info info, String texture, int price, Element element) throws IllegalArgumentException {
+    public Material(int lenZ, Info info, String texture, int price, Element element) throws NotUniqueMaterial {
         this(Material.LENGTH, Material.WIDTH, lenZ, info, texture, price);
         if (unique.containsKey(this.hashCode())) {
             unique.get(this.hashCode()).elements.add(element);
-            throw new IllegalArgumentException("Not unique: " + this.toString());
+            throw new NotUniqueMaterial(unique.get(this.hashCode()));
         }
         unique.put(this.hashCode(), this);
         elements.add(element);
@@ -134,7 +135,7 @@ public class Material extends Dimension_3 implements Price {
     static public Map<String, ArrayList<ArrayList<String[]>>> statistic() {
         Map<String, ArrayList<ArrayList<String[]>>> map = new HashMap<>();
         ArrayList<ArrayList<String[]>> list = new ArrayList<>();
-        map.put(OutFile.STATISTIC + Material.class.getSimpleName(), list);
+        map.put(OutFileName.STATISTIC + Material.class.getSimpleName(), list);
         list.add(new ArrayList<>());
         list.get(0).add(new String[]{
                 OutHeader.NAME,
