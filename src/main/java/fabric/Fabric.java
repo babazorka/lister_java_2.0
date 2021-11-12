@@ -1,7 +1,7 @@
 package fabric;
 
-import construct.imlemented.element.Element;
-import construct.imlemented.product.Product;
+import construct.imlemented.Element;
+import construct.imlemented.Product;
 import construct.base.Info;
 import file.reader.CsvTable;
 

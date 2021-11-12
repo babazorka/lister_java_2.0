@@ -5,7 +5,7 @@ import java.util.Objects;
 public abstract class Dimension_3 extends Dimension_2 {
     protected int lenZ;
 
-    public int zapremina() {
+    public int volume() {
         return povrsina() * lenZ;
     }
 
@@ -21,6 +21,10 @@ public abstract class Dimension_3 extends Dimension_2 {
         if (!super.equals(o)) return false;
         Dimension_3 that = (Dimension_3) o;
         return lenY == that.lenY;
+    }
+
+    public int getLenZ() {
+        return lenZ;
     }
 
     @Override

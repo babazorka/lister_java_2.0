@@ -10,7 +10,7 @@ public abstract class Dimension_2 {
         return lenX * lenY;
     }
 
-    public int obim() {
+    public int perimeter() {
         return 2 * (lenX + lenY);
     }
 

@@ -1,8 +1,6 @@
-package construct.imlemented.material;
+package construct.imlemented;
 
 import construct.base.Holder;
-import construct.base.Print;
-import construct.imlemented.element.Element;
 import construct.base.Price;
 import construct.base.Dimension_3;
 import construct.base.Info;
@@ -11,7 +9,7 @@ import construct.unique.NotUniqueException;
 
 import java.util.*;
 
-public class Material extends Dimension_3 implements Price, Print {
+public class Material extends Dimension_3 implements Price {
 
     Info info;
     String texture;
@@ -38,18 +36,11 @@ public class Material extends Dimension_3 implements Price, Print {
 
     @Override
     public int calculate() {
-        int povrsina = 0;
+        int square = 0;
         List<Element> list = elements.list();
         for (Element e : list)
-            povrsina += e.povrsina() * e.getKolicina();
-        return quantity * povrsina;
-    }
-
-    @Override
-    public void print() {
-//        Collection<Materijal> list = uniquee.values();
-//        for (Materijal m : list)
-//            System.out.println(m);
+            square += e.povrsina() * e.getQuantity();
+        return quantity * square;
     }
 
     @Override
@@ -69,8 +60,8 @@ public class Material extends Dimension_3 implements Price, Print {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        Material materijal = (Material) o;
-        return quantity == materijal.quantity && info.equals(materijal.info) && texture.equals(materijal.texture);
+        Material material = (Material) o;
+        return quantity == material.quantity && info.equals(material.info) && texture.equals(material.texture);
     }
 
     @Override
@@ -80,5 +71,24 @@ public class Material extends Dimension_3 implements Price, Print {
 
     static public void print_static() {
         unique.print();
+    }
+
+    static public ArrayList<ArrayList<String[]>> csvList() {
+        ArrayList<ArrayList<String[]>> list = new ArrayList<>();
+        for (Material material : unique.getMulitMap().keySet()) {
+            list.add(new ArrayList<>());
+            list.get(list.size() - 1).add(new String[]{
+                    "lenX",
+                    "kt",
+                    "lenZ",
+                    "kt",
+                    "name",
+                    "texture",
+                    "quantity",
+            });
+            for (Element element : unique.getMulitMap().get(material))
+                list.get(list.size() - 1).add(element.csvRow());
+        }
+        return list;
     }
 }

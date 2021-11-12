@@ -3,10 +3,10 @@ package construct.unique;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Hashtable;
+import java.util.Set;
 
 public class MultiHash<S, T> {
     private Hashtable<S, ArrayList<T>> mulitMap = new Hashtable<>();
-
 
     public void print() {
         for (var key : mulitMap.keySet()) {
@@ -28,4 +28,13 @@ public class MultiHash<S, T> {
     public Collection<ArrayList<T>> values() {
         return mulitMap.values();
     }
+
+    public Hashtable<S, ArrayList<T>> getMulitMap() {
+        return mulitMap;
+    }
+
+    public Set<S> keySet() {
+        return mulitMap.keySet();
+    }
+
 }

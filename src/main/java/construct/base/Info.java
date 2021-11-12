@@ -6,9 +6,9 @@ public class Info {
     protected String name;
     protected String note;
 
-    public Info(String naziv, String napomena) {
-        this.name = naziv;
-        this.note = napomena;
+    public Info(String name, String note) {
+        this.name = name;
+        this.note = note;
     }
 
     @Override

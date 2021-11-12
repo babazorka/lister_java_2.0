@@ -7,11 +7,15 @@ import java.io.FileReader;
 import java.util.regex.Matcher;
 
 public class ReadCSV {
-    static public String relative_path = "src/main/resources/list.csv";
+    static protected String relativePath = "src/main/resources/list.csv";
 
-    public void read() throws FileNotFoundException {
+    public ReadCSV() throws FileNotFoundException {
+        this(ReadCSV.relativePath);
+    }
+
+    public ReadCSV(String absolute_path) throws FileNotFoundException {
         CsvTable.list =
-                new CsvToBeanBuilder(new FileReader(ReadCSV.relative_path))
+                new CsvToBeanBuilder(new FileReader(absolute_path))
                         .withType(CsvTable.class)
                         .withFilter(line -> {
                                     Matcher matcher = CsvTable.pattern_def_name.matcher(line[1]);
