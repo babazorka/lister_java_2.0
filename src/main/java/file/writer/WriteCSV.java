@@ -16,11 +16,11 @@ public class WriteCSV {
 
     static public void writeCSV(ArrayList<ArrayList<String[]>> files, String fileName) throws IOException {
         for (ArrayList<String[]> file : files)
-            WriteCSV.write(file, fileName + RandomStringUtils.random(4, false, true));
+            WriteCSV.write(file, fileName + RandomStringUtils.random(2, false, true));
     }
 
     static private void write(ArrayList<String[]> csvTable, String fileName) throws IOException {
-        try (Writer writer = Files.newBufferedWriter(Paths.get("src/main/resources/" + fileName + ".csv"));
+        try (Writer writer = Files.newBufferedWriter(Paths.get("src/main/resources/output/" + fileName + ".csv"));
              CSVWriter csvWriter = new CSVWriter(writer,
                      CSVWriter.DEFAULT_SEPARATOR,
                      CSVWriter.NO_QUOTE_CHARACTER,

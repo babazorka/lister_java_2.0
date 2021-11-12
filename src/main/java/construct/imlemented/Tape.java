@@ -1,6 +1,5 @@
 package construct.imlemented;
 
-import construct.base.Holder;
 import construct.unique.MultiHash;
 import construct.base.Price;
 import construct.base.Dimension_3;
@@ -15,13 +14,11 @@ public class Tape extends Dimension_3 implements Price {
     protected Info info;
     protected int price;
 
-    protected static Holder<Element> elements = new Holder<>();
+    protected static ArrayList<Element> elements = new ArrayList<>();
     protected static MultiHash<Tape, Element> unique = new MultiHash<>();
 
     public Tape(int lenZ, Info info, int price, Element element) throws NotUniqueException {
         this(0, 0, lenZ, info, price);
-        if (element.tapeLength() == 0)
-            throw new NotUniqueException();
         unique.add(this, element);
     }
 
@@ -31,9 +28,52 @@ public class Tape extends Dimension_3 implements Price {
         this.price = quantity;
     }
 
+    public int getPrice() {
+        return price;
+    }
+
+    @Override
+    public int surface() {
+        return perimeter() * lenZ;
+    }
+
+    @Override
+    public int perimeter() {
+        int perimeter = 0;
+        for (Element e : elements)
+            perimeter += e.tapeLength() * e.getQuantity();
+        return perimeter;
+    }
+
+    @Override
+    public int volume() {
+        return 0;
+    }
+
+    public static ArrayList<ArrayList<String[]>> csvList() {
+        ArrayList<ArrayList<String[]>> list = new ArrayList<>();
+        list.add(new ArrayList<>());
+        list.get(0).add(new String[]{
+                "name",
+                "note",
+                "price",
+                "perimeter",
+                "surface"
+        });
+        for (Tape tape : unique.keySet())
+            list.get(0).add(new String[]{
+                    tape.getInfo().getName(),
+                    tape.getInfo().getNote(),
+                    String.valueOf(tape.getPrice()),
+                    String.valueOf(tape.perimeter()),
+                    String.valueOf(tape.surface()),
+            });
+        return list;
+    }
+
     public int length() {
         int tapeLength = 0;
-        List<Element> list = elements.list();
+        List<Element> list = elements;
 
         for (Element elem : list)
             tapeLength += elem.tapeLength();
@@ -76,25 +116,12 @@ public class Tape extends Dimension_3 implements Price {
         return info;
     }
 
-    static public ArrayList<ArrayList<String[]>> csvList() {
-        ArrayList<ArrayList<String[]>> list = new ArrayList<>();
-        list.add(new ArrayList<>());
-        list.get(0).add(new String[]{
-                "name",
-                "note",
-                "lenZ",
-                "length"
-        });
-
-        for (Tape tape : unique.keySet())
-            list.get(0).add(new String[]{
-                    tape.getInfo().getName(),
-                    tape.getInfo().getNote(),
-                    String.valueOf(tape.getLenZ()),
-                    String.valueOf(tape.length())
-            });
-
-        return list;
+    static String convert(int kt) {
+        if (kt == 1)
+            return "(X;0)";
+        if (kt == 2)
+            return "(X;X)";
+        return "";
     }
 }
 

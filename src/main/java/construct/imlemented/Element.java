@@ -12,17 +12,20 @@ public class Element extends Dimension_3 {
     protected int cantedLength;
     protected int cantedWidth;
 
-    public Element(int lenX, int lenY, int lenZ, Info info, int quantity, String material, int tapeLenZ, String tapeMaterial) {
+    public Element(int lenX, int lenY, int lenZ, Info info, int quantity, String material, int tapeLenZ, String tapeMaterial, int cantedLength, int cantedWidth) {
         super(lenX, lenY, lenZ);
         this.info = info;
         this.quantity = quantity;
+        this.cantedLength = cantedLength;
+        this.cantedWidth = cantedWidth;
 
         try {
             new Material(lenZ, new Info(material, ""), "-", this);
         } catch (NotUniqueException e) {
         }
         try {
-            new Tape(tapeLenZ, new Info(tapeMaterial, ""), 120, this);
+            if(tapeLength() > 0)
+                new Tape(tapeLenZ, new Info(tapeMaterial, ""), 120, this);
         } catch (NotUniqueException e) {
         }
     }
@@ -65,9 +68,9 @@ public class Element extends Dimension_3 {
     public String[] csvRow() {
         return new String[]{
                 String.valueOf(lenX),
-                String.valueOf(cantedLength),
+                Tape.convert(cantedLength),
                 String.valueOf(lenY),
-                String.valueOf(cantedWidth),
+                Tape.convert(cantedWidth),
                 info.getName(),
                 "-",
                 String.valueOf(quantity)

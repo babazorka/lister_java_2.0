@@ -6,7 +6,7 @@ public abstract class Dimension_3 extends Dimension_2 {
     protected int lenZ;
 
     public int volume() {
-        return povrsina() * lenZ;
+        return surface() * lenZ;
     }
 
     public Dimension_3(int lenX, int lenY, int lenZ) {

@@ -1,12 +1,10 @@
 package construct.imlemented;
 
-import construct.base.Holder;
 import construct.base.Price;
 import construct.base.Dimension_3;
 import construct.base.Info;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class Product extends Dimension_3 implements Price {
@@ -14,7 +12,7 @@ public class Product extends Dimension_3 implements Price {
     protected int price;
     protected int quantity;
 
-    protected static Holder<Product> created = new Holder<>();
+    protected static ArrayList<Product> created = new ArrayList<>();
 
     public Product(Info info, int price, int quantity) {
         this(0, 0, 0, info, price, quantity);
@@ -29,6 +27,18 @@ public class Product extends Dimension_3 implements Price {
         created.add(this);
     }
 
+    public Info getInfo() {
+        return info;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
     public int calculate() {
         return price * quantity;
     }
@@ -39,26 +49,31 @@ public class Product extends Dimension_3 implements Price {
                 "info=" + info +
                 ", price=" + price +
                 ", quantity=" + quantity +
+                ", price*quantity=" + calculate() +
                 '}';
     }
 
     static public void print_static() {
-        Collection<Product> list = created.list();
-        for (Product e : list)
+        for (Product e : created)
             System.out.println(e);
     }
 
     static public ArrayList<ArrayList<String[]>> csvList() {
         ArrayList<ArrayList<String[]>> list = new ArrayList<>();
         list.add(new ArrayList<>());
-        list.get(0).add(new String[]{"name", "note", "price", "quantity",});
-        for (Product p : (List<Product>) created.list())
+        list.get(0).add(new String[]{"name", "note", "price", "quantity", "price*quantity"});
+        int accumulatedPrice = 0;
+        for (Product p : created) {
             list.get(0).add(new String[]{
                     p.info.getName(),
                     p.info.getNote(),
                     String.valueOf(p.price),
-                    String.valueOf(p.quantity)
+                    String.valueOf(p.quantity),
+                    String.valueOf(p.calculate())
             });
+            accumulatedPrice += p.calculate();
+        }
+        list.get(0).add(new String[]{"", "", "", "", String.valueOf(accumulatedPrice)});
         return list;
     }
 }

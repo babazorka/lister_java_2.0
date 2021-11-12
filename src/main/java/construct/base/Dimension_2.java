@@ -6,7 +6,7 @@ public abstract class Dimension_2 {
     protected int lenX;
     protected int lenY;
 
-    public int povrsina() {
+    public int surface() {
         return lenX * lenY;
     }
 

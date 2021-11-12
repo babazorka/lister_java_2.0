@@ -36,7 +36,7 @@ public class CsvTable {
     String Material;
 
     @CsvBindByName(column = "Definition Name")
-    String Definition_Name;
+    private String Definition_Name;
 
     Type tip;
 
@@ -161,5 +161,18 @@ public class CsvTable {
 
     public String getNapomena() {
         return Napomena;
+    }
+
+    public void setTraka_materijal(String traka_materijal) {
+//        if (!traka_materijal.equals("null"))
+        Traka_materijal = traka_materijal;
+    }
+
+    public int getKant_duzina() {
+        return Kant_duzina;
+    }
+
+    public int getKant_sirina() {
+        return Kant_sirina;
     }
 }
