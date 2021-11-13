@@ -85,9 +85,9 @@ public class Material extends Dimension_3 implements Price {
             list.add(new ArrayList<>());
             map.put(material.getInfo().getName(), list);
             list.get(list.size() - 1).add(new String[]{
-                    OutHeader.LenX,
+                    OutHeader.LenY,
                     OutHeader.KT,
-                    OutHeader.LenZ,
+                    OutHeader.LenX,
                     OutHeader.KT,
                     OutHeader.TEXTURE,
                     OutHeader.QUANTITY,

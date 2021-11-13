@@ -11,7 +11,7 @@ public abstract class Dimension_3 extends Dimension_2 {
         return surface() * lenZ * Unit.MREAL;
     }
 
-    public Dimension_3(int lenX, int lenY, int lenZ) {
+    public Dimension_3(int lenY, int lenX, int lenZ) {
         super(lenX, lenY);
         this.lenZ = lenZ;
     }

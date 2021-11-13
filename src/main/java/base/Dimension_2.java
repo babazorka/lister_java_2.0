@@ -12,11 +12,19 @@ public abstract class Dimension_2 {
         return lenX * lenY * Unit.M2REAL;
     }
 
+    public int getLenX() {
+        return lenX;
+    }
+
+    public int getLenY() {
+        return lenY;
+    }
+
     public float perimeter() {
         return 2 * (lenX + lenY) * Unit.MREAL;
     }
 
-    public Dimension_2(int lenX, int lenY) {
+    public Dimension_2(int lenY, int lenX) {
         this.lenX = lenX;
         this.lenY = lenY;
     }

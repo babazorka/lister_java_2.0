@@ -88,7 +88,7 @@ public class Tape extends Dimension_3 implements Price {
             float calculate = tape.calculate();
             list.get(0).add(new String[]{
                     tape.getInfo().getName(),
-                    String.valueOf(tape.lenX),
+                    String.valueOf(tape.lenY),
                     String.valueOf(tape.getLenZ()),
                     String.valueOf(tape.getPrice()),
                     String.valueOf(tape.numberOfElements()),
@@ -99,7 +99,7 @@ public class Tape extends Dimension_3 implements Price {
             });
             accumulatePerimeterPrice += calculate;
         }
-        list.get(0).add(new String[]{"", "", "", "", "", "", "", String.valueOf(accumulatePerimeterPrice), SpecificWrite.SUM});
+        list.get(0).add(new String[]{"", "", "", "", "", "", SpecificWrite.floatToString(accumulatePerimeterPrice), SpecificWrite.SUM});
 
         return map;
     }
