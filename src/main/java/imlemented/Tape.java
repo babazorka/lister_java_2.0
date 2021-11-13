@@ -7,7 +7,7 @@ import exception.NotUniqueTape;
 import unit.Unit;
 import writer.OutHeader;
 import writer.OutFileName;
-import writer.SpecificValue;
+import writer.SpecificWrite;
 
 import java.util.*;
 import java.util.List;
@@ -77,7 +77,7 @@ public class Tape extends Dimension_3 implements Price {
                 OutHeader.LenX,
                 OutHeader.LenZ,
                 OutHeader.PRICE,
-                SpecificValue.NUMBEROF + Element.class.getSimpleName(),
+                SpecificWrite.NUMBEROF + Element.class.getSimpleName(),
                 OutHeader.PERIMETER,
 //                OutHeader.SURFACE,
                 OutHeader.PRICE_PERIMETER,
@@ -92,14 +92,14 @@ public class Tape extends Dimension_3 implements Price {
                     String.valueOf(tape.getLenZ()),
                     String.valueOf(tape.getPrice()),
                     String.valueOf(tape.numberOfElements()),
-                    String.valueOf(tape.perimeter()),
+                    SpecificWrite.floatToString(tape.perimeter()),
 //                    String.valueOf(tape.surface()),
-                    String.valueOf(calculate),
+                    SpecificWrite.floatToString(calculate),
                     tape.getInfo().getNote()
             });
             accumulatePerimeterPrice += calculate;
         }
-        list.get(0).add(new String[]{"", "", "", "", "", "", "", String.valueOf(accumulatePerimeterPrice), SpecificValue.SUM});
+        list.get(0).add(new String[]{"", "", "", "", "", "", "", String.valueOf(accumulatePerimeterPrice), SpecificWrite.SUM});
 
         return map;
     }
@@ -147,9 +147,9 @@ public class Tape extends Dimension_3 implements Price {
 
     static String convert(int kt) {
         if (kt == 1)
-            return "(X;0)";
+            return "(X,0)";
         if (kt == 2)
-            return "(X;X)";
+            return "(X,X)";
         return "";
     }
 }

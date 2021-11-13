@@ -7,7 +7,7 @@ import unit.Unit;
 import base.Info;
 import writer.OutFileName;
 import writer.OutHeader;
-import writer.SpecificValue;
+import writer.SpecificWrite;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -158,21 +158,21 @@ public class Material extends Dimension_3 implements Price {
                     material.getInfo().getName(),
                     material.getTexture(),
                     String.valueOf(material.getPrice()),
-                    String.valueOf(perimeterPrice),
-                    String.valueOf(material.surface()),
-                    String.valueOf(material.volume()),
-                    String.valueOf(materialPrice),
+                    SpecificWrite.floatToString(perimeterPrice),
+                    SpecificWrite.floatToString(material.surface()),
+                    SpecificWrite.floatToString(material.volume()),
+                    SpecificWrite.floatToString(materialPrice),
                     material.getInfo().getNote()
             });
             accumulateMaterialPrice += materialPrice;
             accumulatePerimeter += perimeterPrice;
         }
         list.get(0).add(new String[]{
-                "", "", "", String.valueOf(accumulatePerimeter * Material.CutPrice),
-                "", "", String.valueOf(accumulateMaterialPrice), SpecificValue.DESCRIPTION_1
+                "", "", "", SpecificWrite.floatToString(accumulatePerimeter * Material.CutPrice),
+                "", "", SpecificWrite.floatToString(accumulateMaterialPrice), SpecificWrite.DESCRIPTION_1
         });
         list.get(0).add(new String[]{
-                "", "", "", "", "", "", String.valueOf(accumulateMaterialPrice + accumulatePerimeter * Material.CutPrice), SpecificValue.SUM
+                "", "", "", "", "", "", SpecificWrite.floatToString(accumulateMaterialPrice + accumulatePerimeter * Material.CutPrice), SpecificWrite.SUM
         });
         return map;
     }

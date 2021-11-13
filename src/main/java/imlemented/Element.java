@@ -5,7 +5,7 @@ import base.Info;
 import exception.NotUniqueMaterial;
 import exception.NotUniqueTape;
 import unit.Unit;
-import writer.SpecificValue;
+import writer.SpecificWrite;
 
 import java.util.Objects;
 
@@ -97,7 +97,7 @@ public class Element extends Dimension_3 {
                 String.valueOf(quantity),
                 info.getName(),
                 tape == null
-                        ? SpecificValue.NO_TAPE
+                        ? SpecificWrite.NO_TAPE
                         : tape.getInfo().getName(),
                 info.getNote()
         };
