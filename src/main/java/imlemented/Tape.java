@@ -79,7 +79,7 @@ public class Tape extends Dimension_3 implements Price {
                 OutHeader.PRICE,
                 SpecificValue.NUMBEROF + Element.class.getSimpleName(),
                 OutHeader.PERIMETER,
-                OutHeader.SURFACE,
+//                OutHeader.SURFACE,
                 OutHeader.PRICE_PERIMETER,
                 OutHeader.NOTE
         });
@@ -93,7 +93,7 @@ public class Tape extends Dimension_3 implements Price {
                     String.valueOf(tape.getPrice()),
                     String.valueOf(tape.numberOfElements()),
                     String.valueOf(tape.perimeter()),
-                    String.valueOf(tape.surface()),
+//                    String.valueOf(tape.surface()),
                     String.valueOf(calculate),
                     tape.getInfo().getNote()
             });
