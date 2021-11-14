@@ -95,10 +95,10 @@ public class Element extends Dimension_3 {
                 Tape.convert(cantedWidth),
                 material.texture,
                 String.valueOf(quantity),
-                info.getName(),
                 tape == null
                         ? SpecificWrite.NO_TAPE
                         : tape.getInfo().getName(),
+                info.getName(),
                 info.getNote()
         };
     }

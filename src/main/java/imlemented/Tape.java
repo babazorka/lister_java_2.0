@@ -99,7 +99,7 @@ public class Tape extends Dimension_3 implements Price {
             });
             accumulatePerimeterPrice += calculate;
         }
-        list.get(0).add(new String[]{"", "", "", "", "", "", "", String.valueOf(accumulatePerimeterPrice), SpecificWrite.SUM});
+        list.get(0).add(new String[]{"", "", "", "", "", "", SpecificWrite.floatToString(accumulatePerimeterPrice), SpecificWrite.SUM});
 
         return map;
     }
@@ -147,9 +147,9 @@ public class Tape extends Dimension_3 implements Price {
 
     static String convert(int kt) {
         if (kt == 1)
-            return "(X,0)";
+            return "(X" + SpecificWrite.FREE_CHARACTER() + "0)";
         if (kt == 2)
-            return "(X,X)";
+            return "(X" + SpecificWrite.FREE_CHARACTER() + "X)";
         return "";
     }
 }

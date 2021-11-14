@@ -17,7 +17,15 @@ import java.util.Objects;
 public class Material extends Dimension_3 implements Price {
     static protected int LENGTH = 3000;
     static protected int WIDTH = 2800;
-    static public int CutPrice;
+    static private final int CUT_PRICE_DEFAULT = 120;
+    static private int CUT_PRICE = CUT_PRICE_DEFAULT;
+    static public int CUT_PRICE(){
+        return CUT_PRICE;
+    };
+
+    static public void SET_CUT_PRICE(int cutPrice) {
+        CUT_PRICE = cutPrice;
+    }
 
     protected Info info;
     protected String texture;
@@ -85,14 +93,14 @@ public class Material extends Dimension_3 implements Price {
             list.add(new ArrayList<>());
             map.put(material.getInfo().getName(), list);
             list.get(list.size() - 1).add(new String[]{
-                    OutHeader.LenX,
+                    OutHeader.LenY,
                     OutHeader.KT,
-                    OutHeader.LenZ,
+                    OutHeader.LenX,
                     OutHeader.KT,
                     OutHeader.TEXTURE,
                     OutHeader.QUANTITY,
-                    OutHeader.NAME,
                     OutHeader.TAPE,
+                    OutHeader.NAME,
                     OutHeader.NOTE
             });
             for (Element element : material.getElements())
@@ -146,8 +154,8 @@ public class Material extends Dimension_3 implements Price {
                 OutHeader.PERIMETER,
                 OutHeader.SURFACE,
                 OutHeader.VOLUME,
-                OutHeader.PRICE_SURFACE,
-                OutHeader.NOTE
+                OutHeader.PRICE_SURFACE
+//                ,OutHeader.NOTE
         });
         float accumulateMaterialPrice = 0;
         float accumulatePerimeter = 0;
@@ -168,11 +176,12 @@ public class Material extends Dimension_3 implements Price {
             accumulatePerimeter += perimeterPrice;
         }
         list.get(0).add(new String[]{
-                "", "", "", SpecificWrite.floatToString(accumulatePerimeter * Material.CutPrice),
+                "", "", "", SpecificWrite.floatToString(accumulatePerimeter * Material.CUT_PRICE()),
                 "", "", SpecificWrite.floatToString(accumulateMaterialPrice), SpecificWrite.DESCRIPTION_1
         });
         list.get(0).add(new String[]{
-                "", "", "", "", "", "", SpecificWrite.floatToString(accumulateMaterialPrice + accumulatePerimeter * Material.CutPrice), SpecificWrite.SUM
+                "", "", "", "", "", "", SpecificWrite.floatToString(accumulateMaterialPrice + accumulatePerimeter * Material.CUT_PRICE())
+//                ,SpecificWrite.SUM
         });
         return map;
     }

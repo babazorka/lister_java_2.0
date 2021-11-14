@@ -28,8 +28,7 @@ public class WriteCSV {
     static private void write(ArrayList<String[]> csvTable, String fileName) throws IOException {
         try (Writer writer = Files.newBufferedWriter(Paths.get(relative_folder_path + fileName + ".csv"));
              CSVWriter csvWriter = new CSVWriter(writer,
-//                     CSVWriter.DEFAULT_SEPARATOR,
-                     ';',
+                     SpecificWrite.SEPARATOR(),
                      CSVWriter.NO_QUOTE_CHARACTER,
                      CSVWriter.DEFAULT_ESCAPE_CHARACTER,
                      CSVWriter.DEFAULT_LINE_END);
@@ -37,8 +36,5 @@ public class WriteCSV {
             for (String[] row : csvTable)
                 csvWriter.writeNext(row);
         }
-    }
-
-    private WriteCSV() {
     }
 }

@@ -6,6 +6,7 @@ import imlemented.Tape;
 import fabric.Fabric;
 import reader.ReadCSV;
 import reader.CsvTable;
+import writer.SpecificWrite;
 import writer.WriteCSV;
 
 import java.io.FileNotFoundException;
@@ -14,7 +15,9 @@ import java.io.IOException;
 public class Work {
     public static void main(String[] args) {
         try {
-            Material.CutPrice = 120; // cena rezanja po metru
+            SpecificWrite.SET_SEPARATOR(SpecificWrite.SEPARATOR_COMMA); // ';' is default
+            Material.SET_CUT_PRICE(100); // cutPrice by meter
+
 //            ReadCSV readCSV = new ReadCSV("C:\\Users\\kaoko\\OneDrive\\Desktop\\list.csv");
             new ReadCSV(); // relative path
             new Fabric(CsvTable.list);

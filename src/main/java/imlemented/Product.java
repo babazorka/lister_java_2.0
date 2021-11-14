@@ -64,7 +64,7 @@ public class Product extends Dimension_3 implements Price {
                     String.valueOf(p.price),
                     String.valueOf(p.quantity),
                     SpecificWrite.floatToString(p.calculate()),
-                    p.info.getNote(),
+                    p.info.getNote()
             });
             accumulatedPrice += p.calculate();
         }

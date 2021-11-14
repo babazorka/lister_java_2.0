@@ -18,8 +18,8 @@ public class Fabric {
                 }
                 case Element -> {
                     new Element(
-                            b.getLenX(),
                             b.getLenY(),
+                            b.getLenX(),
                             b.getLenZ(),
                             new Info(b.getNaziv(), b.getNapomena()),
                             b.getQuantity(),
