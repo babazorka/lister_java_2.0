@@ -20,7 +20,7 @@ public class SpecificWrite {
     static public String floatToString(float value) {
         if (SEPARATOR == ';')
             return String.format("%.2f", value);
-        return String.valueOf(value);
+        return String.format("%.2f", value).replace(',', '.');
     }
 
     static public Character FREE_CHARACTER() {
