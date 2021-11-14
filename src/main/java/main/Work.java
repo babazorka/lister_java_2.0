@@ -16,10 +16,10 @@ public class Work {
     public static void main(String[] args) {
         try {
             SpecificWrite.SET_SEPARATOR(SpecificWrite.SEPARATOR_COMMA); // ';' is default
-            Material.SET_CUT_PRICE(100); // cutPrice by meter
 
 //            ReadCSV readCSV = new ReadCSV("C:\\Users\\kaoko\\OneDrive\\Desktop\\list.csv");
-            new ReadCSV(); // relative path
+//            new ReadCSV("list"); // relative path
+            new ReadCSV("test"); // relative path
             new Fabric(CsvTable.list);
 
             WriteCSV.writeCSV(Product.csvList());

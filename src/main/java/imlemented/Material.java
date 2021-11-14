@@ -17,11 +17,14 @@ import java.util.Objects;
 public class Material extends Dimension_3 implements Price {
     static protected int LENGTH = 3000;
     static protected int WIDTH = 2800;
-    static private final int CUT_PRICE_DEFAULT = 120;
+    static private final int CUT_PRICE_DEFAULT = 40;
     static private int CUT_PRICE = CUT_PRICE_DEFAULT;
-    static public int CUT_PRICE(){
+
+    static public int CUT_PRICE() {
         return CUT_PRICE;
-    };
+    }
+
+    ;
 
     static public void SET_CUT_PRICE(int cutPrice) {
         CUT_PRICE = cutPrice;
@@ -169,8 +172,8 @@ public class Material extends Dimension_3 implements Price {
                     SpecificWrite.floatToString(perimeterPrice),
                     SpecificWrite.floatToString(material.surface()),
                     SpecificWrite.floatToString(material.volume()),
-                    SpecificWrite.floatToString(materialPrice),
-                    material.getInfo().getNote()
+                    SpecificWrite.floatToString(materialPrice)
+//                    , material.getInfo().getNote()
             });
             accumulateMaterialPrice += materialPrice;
             accumulatePerimeter += perimeterPrice;
