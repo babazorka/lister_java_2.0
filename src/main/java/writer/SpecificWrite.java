@@ -18,12 +18,13 @@ public class SpecificWrite {
     }
 
     static public String floatToString(float value) {
-//        if (SEPARATOR == ';')
+        if (SEPARATOR == ';')
             return String.format("%.2f", value);
-//        return String.valueOf(value);
+        return String.valueOf(value);
     }
-    static public Character FREE_CHARACTER(){
-        if(SEPARATOR == SEPARATOR_SEMICOLON)
+
+    static public Character FREE_CHARACTER() {
+        if (SEPARATOR == SEPARATOR_SEMICOLON)
             return SEPARATOR_COMMA;
         return SEPARATOR_SEMICOLON;
     }
