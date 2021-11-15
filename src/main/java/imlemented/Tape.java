@@ -104,18 +104,9 @@ public class Tape extends Dimension_3 implements Price {
         return map;
     }
 
-    public float length() {
-        float tapeLength = 0;
-        List<Element> list = elements;
-
-        for (Element elem : list)
-            tapeLength += elem.tapeLength();
-        return tapeLength;
-    }
-
     @Override
     public float calculate() {
-        return price * length();
+        return price * perimeter();
     }
 
     @Override
