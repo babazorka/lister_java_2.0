@@ -32,7 +32,7 @@ public class Element extends Dimension_3 {
             int tapePrice,
             String materialTexture
     ) {
-        super(lenX, lenY, lenZ);
+        super(lenY, lenX, lenZ);
         this.info = info;
         this.quantity = quantity;
         this.cantedLength = cantedLength;
@@ -50,6 +50,11 @@ public class Element extends Dimension_3 {
         } catch (NotUniqueTape e) {
             this.tape = e.getTape();
         }
+    }
+
+    @Override
+    public float length() {
+        return super.length() * quantity;
     }
 
     public int getQuantity() {

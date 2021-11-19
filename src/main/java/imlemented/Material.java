@@ -56,8 +56,19 @@ public class Material extends Dimension_3 implements Price {
 
     @Override
     public float calculate() {
+        if (info.getName().contains("Ploca"))
+            return price * length();
         return price * surface();
     }
+
+    @Override
+    public float length() {
+        float length = 0;
+        for (Element e : elements)
+            length += e.length();
+        return length;
+    }
+
 
     @Override
     public String toString() {

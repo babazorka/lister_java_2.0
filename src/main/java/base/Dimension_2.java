@@ -20,6 +20,11 @@ public abstract class Dimension_2 {
         return lenY;
     }
 
+    public float length() {
+        return lenY * Unit.MREAL;
+    }
+
+
     public float perimeter() {
         return 2 * (lenX + lenY) * Unit.MREAL;
     }

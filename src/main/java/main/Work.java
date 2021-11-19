@@ -15,11 +15,11 @@ import java.io.IOException;
 public class Work {
     public static void main(String[] args) {
         try {
-            SpecificWrite.SET_SEPARATOR(SpecificWrite.SEPARATOR_COMMA); // ';' is default
+//            SpecificWrite.SET_SEPARATOR(SpecificWrite.SEPARATOR_COMMA); // ';' is default
 
 //            ReadCSV readCSV = new ReadCSV("C:\\Users\\kaoko\\OneDrive\\Desktop\\list.csv");
-//            new ReadCSV("list"); // relative path
-            new ReadCSV("test"); // relative path
+            new ReadCSV("list"); // relative path
+//            new ReadCSV("proba"); // relative path
             new Fabric(CsvTable.list);
 
             WriteCSV.writeCSV(Product.csvList());
