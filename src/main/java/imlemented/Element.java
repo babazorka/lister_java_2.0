@@ -94,9 +94,9 @@ public class Element extends Dimension_3 {
 
     public String[] csvRow() {
         return new String[]{
-                String.valueOf(lenX),
-                Tape.convert(cantedLength),
                 String.valueOf(lenY),
+                Tape.convert(cantedLength),
+                String.valueOf(lenX),
                 Tape.convert(cantedWidth),
                 material.texture,
                 String.valueOf(quantity),
