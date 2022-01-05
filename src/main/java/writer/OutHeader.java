@@ -25,7 +25,7 @@ public enum OutHeader {
     //    static public final String QUANTITY = "quantity";
     static public final String TEXTURE = "tekstura";
     //    static public final String TEXTURE = "texture";
-    static public final String KT = "kantovanje";
+    static public final String KT = "kt";
     //    static public final String KT = "kt";
     static public final String TAPE = "traka";
     //    static public final String TAPE = "tape";

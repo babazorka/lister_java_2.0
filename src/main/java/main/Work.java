@@ -18,12 +18,13 @@ public class Work {
 //            SpecificWrite.SET_SEPARATOR(SpecificWrite.SEPARATOR_COMMA); // ';' is default
 
 //            ReadCSV readCSV = new ReadCSV("C:\\Users\\kaoko\\OneDrive\\Desktop\\list.csv");
-            new ReadCSV("list"); // relative path
+            new ReadCSV("kuhinja"); // relative path
+//            new ReadCSV("ulazOrmar"); // relative path
 //            new ReadCSV("proba"); // relative path
             new Fabric(CsvTable.list);
 
-            WriteCSV.writeCSV(Product.csvList());
             WriteCSV.writeCSV(Material.csvList());
+            WriteCSV.writeCSV(Product.csvList());
             WriteCSV.writeCSV(Tape.statistic());
             WriteCSV.writeCSV(Material.statistic());
 

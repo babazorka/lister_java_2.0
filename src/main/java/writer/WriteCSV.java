@@ -34,7 +34,7 @@ public class WriteCSV {
                      CSVWriter.DEFAULT_LINE_END);
         ) {
             for (String[] row : csvTable)
-                csvWriter.writeNext(row);
+                    csvWriter.writeNext(row);
         }
     }
 }
