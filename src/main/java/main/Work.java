@@ -17,8 +17,8 @@ public class Work {
         try {
 //            SpecificWrite.SET_SEPARATOR(SpecificWrite.SEPARATOR_COMMA); // ';' is default
 
-//            ReadCSV readCSV = new ReadCSV("C:\\Users\\kaoko\\OneDrive\\Desktop\\list.csv");
-            new ReadCSV("kuhinja"); // relative path
+//            ReadCSV readCSV = new ReadCSV("C:\\Users\\kaoko\\OneDrive\\Desktop\\list");
+            new ReadCSV("ulaz"); // relative path
 //            new ReadCSV("ulazOrmar"); // relative path
 //            new ReadCSV("proba"); // relative path
             new Fabric(CsvTable.list);
